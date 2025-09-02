@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asistente IA Académico</title>
+  <link rel="stylesheet" href="/static/foro_chat.css" />
+  <script defer src="/static/foro_chat.js"></script>
+</head>
+<body>
+  <header class="header">
+    <img src="/static/logo_hospital.png" alt="Logo Hospital" class="header-logo" />
+    <h1>Asistente IA para Consultas Académicas de Manera Responsable en Entornos Virtuales de Aprendizaje</h1>
+    <img src="/static/logo_openlab.png" alt="Logo OpenLab" class="header-logo" />
+  </header>
+
+  <main class="card">
+    <!-- Selector de curso -->
+    <div>
+      <label for="curso">Elegí un curso:</label>
+      <select id="curso" aria-label="Selector de curso"></select>
+    </div>
+
+    <!-- BLOQUE ESTRUCTURADO (se oculta en modo libre) -->
+    <div id="bloque-estructuradas">
+      <label for="faq">Preguntas sugeridas:</label>
+      <select id="faq" aria-label="Preguntas sugeridas">
+        <option value="">-- Elegí una pregunta --</option>
+      </select>
+    </div>
+
+    <!-- Botón para pasar a modo libre -->
+    <div class="botones">
+      <button id="btn-otra" class="alt" onclick="mostrarManual()">✍️ Hacer otra pregunta</button>
+    </div>
+
+    <!-- Botón para volver a sugeridas (solo visible en modo libre) -->
+    <div class="botones oculto" id="wrap-volver">
+      <button id="btn-volver" class="alt" type="button">← Volver a sugeridas</button>
+    </div>
+
+    <!-- MODO LIBRE (oculto por defecto) -->
+    <div id="manual-group" class="oculto" aria-hidden="true">
+      <label for="pregunta">Escribí tu consulta:</label>
+      <input
+        type="text"
+        id="pregunta"
+        placeholder="Ej.: ¿Cuántos foros hay? / Alumnos del curso Anatomía I"
+        autocomplete="off"
+      />
+    </div>
+
+    <!-- Controles adicionales (tamaño de página) -->
+    <div class="botones" aria-label="Controles de listado">
+      <label for="page-size" class="lbl-inline">Filas por página:</label>
+      <select id="page-size" aria-label="Filas por página">
+        <option>50</option>
+        <option selected>100</option>
+        <option>200</option>
+        <option>500</option>
+      </select>
+    </div>
+
+    <!-- Acciones -->
+    <div class="botones">
+      <button id="btn-enviar" class="enviar" onclick="enviarPregunta()">📥 Enviar</button>
+      <button id="btn-limpiar" class="limpiar" onclick="limpiar()">🧹 Limpiar</button>
+    </div>
+
+    <!-- Respuesta -->
+    <div id="respuesta" class="respuesta" role="region" aria-live="polite"></div>
+
+    <!-- Ayuda -->
+    <div class="faq-footer">
+      <button id="btn-ayuda" onclick="toggleFAQ()">¿Cómo funciona este asistente?</button>
+    </div>
+
+    <div id="instrucciones" class="instrucciones oculto" aria-hidden="true">
+      <h3>Guía para usar el Asistente IA 1.0 (versión beta)</h3>
+      <ul>
+        <li>Podés seleccionar una pregunta frecuente o escribir la tuya en lenguaje natural (como si se la preguntaras a una persona).</li>
+        <li>El sistema intentará encontrar una pregunta similar ya registrada o generar una nueva de forma automática.</li>
+        <li>Ejemplo:
+          <ul>
+            <li><strong>Español:</strong> Cuál es la fecha de finalización de la actividad Entrega final?</li>
+            <li><strong>Inglés:</strong> What is the due date of the activity called Entrega Final?</li>
+          </ul>
+        </li>
+        <li>Si hay resultados, se mostrarán en una tabla. Si no, te avisaremos claramente.</li>
+        <li>Algunas preguntas activan análisis con inteligencia artificial: participación en foros, tendencias, mensajes sin respuesta útil, etc.</li>
+        <li>Si no obtenés lo que esperás, probá cambiando algunas palabras o escribiéndolo en inglés.</li>
+        <li>El asistente está en etapa de entrenamiento y mejora constante.</li>
+        <li>Tus consultas son anónimas, salvo que marques la opción de privacidad al final de la página.</li>
+        <li>Si el sistema no responde, puede que el firewall o el antivirus estén bloqueando la conexión.</li>
+        <li>Conocé más en esta <a href="https://gamma.app/docs/Asistente-IA-para-Consultas-Academicas-de-Manera-Responsable-en-E-pf62v5sluzs57ch?mode=present#card-hwh9oo25yi2wlim" target="_blank" rel="noopener">presentación explicativa</a>.</li>
+        <li>Este asistente respeta la <a href="https://www.argentina.gob.ar/sites/default/files/guia_ai-final-2025.pdf" target="_blank" rel="noopener">Guía Nacional de Uso Responsable de IAGen</a> y las <a href="https://unesdoc.unesco.org/ark:/48223/pf0000381137_spa" target="_blank" rel="noopener">Recomendaciones Éticas de la UNESCO</a>.</li>
+        <li>En temas sensibles como ética, privacidad o conducta, se prioriza el respeto, la no discriminación y los derechos humanos.</li>
+      </ul>
+    </div>
+
+    <!-- Autorización -->
+    <div class="checkbox-autorizacion">
+      <label for="guardar">
+        <input type="checkbox" id="guardar" />
+        Autorizo que se registren mis consultas de manera anónima para mejorar este asistente.
+      </label>
+    </div>
+  </main>
+
+  <footer>
+    Sala de Docencia e Investigación – Hospital Larrain de Berisso | OpenLab – Comunidad de IA Responsable y Código Abierto
+  </footer>
+</body>
+</html>
