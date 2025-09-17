@@ -1,0 +1,55 @@
+{
+  "generales": [
+    {
+      "pregunta": "¿Cuántos mensajes se enviaron en toda la plataforma en el último mes?",
+      "sql": "SELECT COUNT(*) AS mensajes_mes\nFROM {PREFIX}forum_posts\nWHERE FROM_UNIXTIME(created, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');"
+    },
+    {
+      "pregunta": "¿Quiénes son los usuarios más activos en la plataforma por cantidad de accesos?",
+      "sql": "SELECT u.id, u.firstname, u.lastname, COUNT(*) AS accesos\nFROM {PREFIX}logstore_standard_log l\nJOIN {PREFIX}user u ON u.id = l.userid\nGROUP BY u.id, u.firstname, u.lastname\nORDER BY accesos DESC\nLIMIT 10;"
+    }
+  ],
+  "generales_ia": [
+    {
+      "pregunta": "¿Existen patrones de desmotivación en los mensajes de toda la plataforma? (IA)",
+      "descripcion": "Detectá mensajes donde los estudiantes expresen cansancio, frustración o pérdida de interés.",
+      "sql": "SELECT u.firstname, u.lastname, fp.message, FROM_UNIXTIME(fp.created) AS fecha, c.fullname AS curso\nFROM {PREFIX}forum_posts fp\nJOIN {PREFIX}user u ON u.id = fp.userid\nJOIN {PREFIX}forum_discussions d ON fp.discussion = d.id\nJOIN {PREFIX}forum f ON d.forum = f.id\nJOIN {PREFIX}course c ON f.course = c.id\nWHERE fp.created >= UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 90 DAY))\nORDER BY fp.created DESC;"
+    },
+    {
+      "pregunta": "¿Qué discusiones recientes recibieron respuestas muy positivas o de agradecimiento? (IA)",
+      "descripcion": "Analizá los mensajes en busca de expresiones de satisfacción, gratitud o valoración positiva.",
+      "sql": "SELECT u.firstname, u.lastname, fp.message, FROM_UNIXTIME(fp.created) AS fecha, c.fullname AS curso\nFROM {PREFIX}forum_posts fp\nJOIN {PREFIX}user u ON u.id = fp.userid\nJOIN {PREFIX}forum_discussions d ON fp.discussion = d.id\nJOIN {PREFIX}forum f ON d.forum = f.id\nJOIN {PREFIX}course c ON f.course = c.id\nWHERE fp.created >= UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 90 DAY))\nORDER BY fp.created DESC;"
+    }
+  ],
+  "por_curso": [
+    {
+      "pregunta": "¿Cuántos avisos importantes se enviaron en este curso?",
+      "sql": "SELECT COUNT(*) AS avisos\nFROM {PREFIX}forum_posts fp\nJOIN {PREFIX}forum_discussions d ON fp.discussion = d.id\nJOIN {PREFIX}forum f ON d.forum = f.id\nJOIN {PREFIX}course c ON f.course = c.id\nWHERE c.fullname = __CURSO__\nAND f.type = 'news';"
+    },
+    {
+      "pregunta": "¿Cuál fue el último aviso importante enviado y cuál fue el asunto?",
+      "sql": "SELECT fp.subject, FROM_UNIXTIME(fp.created) AS fecha\nFROM {PREFIX}forum_posts fp\nJOIN {PREFIX}forum_discussions d ON fp.discussion = d.id\nJOIN {PREFIX}forum f ON d.forum = f.id\nJOIN {PREFIX}course c ON f.course = c.id\nWHERE c.fullname = __CURSO__\nAND f.type = 'news'\nORDER BY fp.created DESC\nLIMIT 1;"
+    },
+    {
+      "pregunta": "¿Cuántas personas participaron en el foro de presentaciones de este curso?",
+      "sql": "SELECT COUNT(DISTINCT fp.userid) AS participantes\nFROM {PREFIX}forum_posts fp\nJOIN {PREFIX}forum_discussions d ON fp.discussion = d.id\nJOIN {PREFIX}forum f ON d.forum = f.id\nJOIN {PREFIX}course c ON f.course = c.id\nWHERE c.fullname = __CURSO__\nAND (LOWER(f.name) LIKE '%presentacion%' OR LOWER(f.name) LIKE '%presentación%');"
+    },
+    {
+      "pregunta": "¿Cuántas intervenciones tuvo el docente en el foro de presentaciones?",
+      "sql": "SELECT COUNT(fp.id) AS intervenciones_docente\nFROM {PREFIX}forum_posts fp\nJOIN {PREFIX}user u ON u.id = fp.userid\nJOIN {PREFIX}forum_discussions d ON fp.discussion = d.id\nJOIN {PREFIX}forum f ON d.forum = f.id\nJOIN {PREFIX}course c ON f.course = c.id\nJOIN {PREFIX}role_assignments ra ON ra.userid = u.id\nJOIN {PREFIX}context ctx ON ctx.id = ra.contextid AND ctx.contextlevel = 50\nWHERE c.fullname = __CURSO__\nAND (LOWER(f.name) LIKE '%presentacion%' OR LOWER(f.name) LIKE '%presentación%')\nAND ra.roleid = 3;"
+    }
+  ],
+  "por_curso_ia": [
+    {
+      "pregunta": "¿Qué tono general predomina en los mensajes del foro de este curso? (IA)",
+      "descripcion": "Analizá si el foro del curso transmite un tono positivo, neutro o negativo en las últimas semanas.",
+      "sql": "SELECT u.firstname, u.lastname, fp.message, FROM_UNIXTIME(fp.created) AS fecha\nFROM {PREFIX}forum_posts fp\nJOIN {PREFIX}forum_discussions d ON fp.discussion = d.id\nJOIN {PREFIX}forum f ON d.forum = f.id\nJOIN {PREFIX}course c ON f.course = c.id\nJOIN {PREFIX}user u ON u.id = fp.userid\nWHERE c.fullname = __CURSO__\nAND fp.created >= UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 60 DAY))\nORDER BY fp.created DESC;"
+    },
+    {
+      "pregunta": "¿Qué dudas recurrentes plantearon los estudiantes en los foros de este curso? (IA)",
+      "descripcion": "Agrupá y resumí con IA las dudas más frecuentes en foros del curso, citando ejemplos representativos.",
+      "sql": "SELECT u.firstname, u.lastname, fp.message, FROM_UNIXTIME(fp.created) AS fecha\nFROM {PREFIX}forum_posts fp\nJOIN {PREFIX}forum_discussions d ON fp.discussion = d.id\nJOIN {PREFIX}forum f ON d.forum = f.id\nJOIN {PREFIX}course c ON f.course = c.id\nJOIN {PREFIX}user u ON u.id = fp.userid\nWHERE c.fullname = __CURSO__\nORDER BY fp.created DESC;"
+    }
+  ]
+}
+

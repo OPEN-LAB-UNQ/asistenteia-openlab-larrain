@@ -1,0 +1,586 @@
+body {
+  background: #f2f3f7;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background 0.5s, color 0.5s;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #003366;
+  padding: 25px 50px;
+  border-bottom: 4px solid #00264d;
+  flex-wrap: wrap;
+}
+
+.header-logo {
+  max-height: 70px;
+  background: #fff;
+  padding: 5px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.header h1 {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  flex: 1;
+  margin: 0 30px;
+}
+
+.card {
+  background: #ffffff;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+select, input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+button.alt { background: #6c757d; color: white; }
+button.alt:hover { background: #5a6268; }
+
+button.enviar { background: #007bff; color: white; }
+button.enviar:hover { background: #0056b3; }
+
+button.limpiar { background: #dc3545; color: white; }
+button.limpiar:hover { background: #bd2130; }
+
+.botones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.respuesta {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  overflow-x: auto;
+}
+
+.respuesta table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.respuesta th, .respuesta td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.respuesta th {
+  background: #003366;
+  color: white;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  color: #555;
+  border-top: 1px solid #ddd;
+  background: #f8f8f8;
+}
+
+.oculto {
+  display: none !important;
+}
+
+.faq-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+
+.faq-footer button {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.instrucciones {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-left: 4px solid #007bff;
+  border-radius: 4px;
+}
+
+.checkbox-autorizacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-top: 25px;
+  background: #f1f1f1;
+  border-radius: 10px;
+  font-size: 15px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  text-align: left;
+  line-height: 1.4;
+}
+
+.checkbox-autorizacion input[type="checkbox"] {
+  transform: scale(1.3);
+  margin-right: 12px;
+}
+
+/* 📱 ADAPTACIÓN RESPONSIVE PARA CELULAR */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 20px;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  .header-logo {
+    max-height: 50px;
+    margin: 5px 0;
+  }
+
+  .card {
+    margin: 20px 10px;
+    padding: 20px;
+  }
+
+  .botones {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .faq-footer button {
+    font-size: 14px;
+  }
+
+  .instrucciones {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .checkbox-autorizacion {
+    flex-direction: column;
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  select, input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .respuesta th, .respuesta td {
+    font-size: 13px;
+    padding: 8px;
+  }
+}
+
+.loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #007bff;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.pensando {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #555;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%   { opacity: 0.3; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+/* 🎯 Botón "Volver a sugeridas" */
+#wrap-volver {
+  justify-content: flex-start;
+}
+
+#btn-volver {
+  background: #e9ecef;
+  color: #333;
+}
+
+#btn-volver:hover {
+  background: #dee2e6;
+}
+/* =========================
+   Paginación y meta consulta
+   ========================= */
+.meta-consulta {
+  margin: 10px 0 6px;
+  color: #666;
+}
+
+.meta-consulta code {
+  background: #f1f3f5;
+  border: 1px solid #e1e5ea;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+
+.pager {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.pager button {
+  background: #0d6efd;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.pager button[disabled] {
+  background: #cdd4db;
+  color: #6b7886;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pager span {
+  color: #445;
+  font-size: 14px;
+}
+
+/* Label inline para selector de tamaño de página */
+.lbl-inline {
+  margin-right: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Tablas: mejorar legibilidad y desplazamiento */
+.respuesta table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.respuesta thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.respuesta tbody tr:nth-child(even) td {
+  background: #fbfcfe;
+}
+
+.respuesta tbody tr:hover td {
+  background: #eef4ff;
+}
+
+/* En pantallas chicas, que el pager quede abajo y centrado */
+@media (max-width: 600px) {
+  .pager {
+    justify-content: center;
+    gap: 8px;
+  }
+  .meta-consulta {
+    text-align: center;
+  }
+}
+
+/* Accesibilidad: foco visible en botones y selects */
+button:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 3px solid rgba(0, 123, 255, 0.35);
+  outline-offset: 2px;
+}
+
+
+/* ==== Banner ético =============================== */
+.info-banner {
+  /* centrado y ancho consistente con el resto de la página */
+  max-width: 1100px;
+  width: min(1100px, calc(100% - 32px));
+  margin: 12px auto;
+  padding: 12px 16px;
+
+  /* caja visual */
+  background: #f5f7fb;
+  border: 1px solid #e5e9f2;
+  border-left: 6px solid #1e3a8a;      /* azul institucional */
+  border-radius: 10px;
+
+  /* layout */
+  display: flex;
+  flex-wrap: wrap;                     /* permite salto en móviles */
+  align-items: center;                 /* alinea checkbox/botón con el texto */
+  gap: 10px 16px;                      /* (fila, columna) */
+}
+
+.info-banner p {
+  margin: 0;
+  flex: 1 1 420px;                     /* el texto ocupa el ancho disponible */
+  line-height: 1.35;
+}
+
+.info-banner a {
+  color: #0b3aa0;
+  text-decoration: underline;
+}
+
+.info-banner label {
+  display: flex;
+  align-items: center;                 /* alinea el checkbox con el texto */
+  gap: 8px;
+  margin: 0;                           /* elimina márgenes raros */
+  font-weight: 500;
+}
+
+.info-banner input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;                           /* quita offset lateral del navegador */
+  vertical-align: middle;
+}
+
+.info-banner .alt,
+#cerrar-banner.alt {
+  /* botón “Entendido” */
+  background: #5b677a;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.oculto { display: none !important; }
+
+/* Responsive: apila elementos prolijos en pantallas angostas */
+@media (max-width: 640px) {
+  .info-banner {
+    gap: 8px 10px;
+    padding: 10px 12px;
+  }
+  .info-banner p { flex-basis: 100%; }   /* el texto va en una línea completa */
+}
+
+
+.query-sql {
+  background-color: #f8f8f8;
+  border: 1px dashed #999;
+  padding: 10px;
+  margin-top: 15px;
+  font-family: monospace;
+  font-size: 14px;
+  white-space: pre-wrap;
+  color: #333;
+}
+
+
+/* ==== Chat estilo burbujas ==== */
+#chat-libre {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  background: #fafafa;
+  max-width: 700px;
+}
+
+.chat-mensajes {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.mensaje {
+  margin: 8px 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 80%;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+
+.mensaje.usuario {
+  background: #007bff;
+  color: white;
+  margin-left: auto;
+  text-align: right;
+}
+
+.mensaje.ia {
+  background: #e9ecef;
+  color: #333;
+  margin-right: auto;
+  text-align: left;
+}
+
+.chat-input {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.chat-input button {
+  padding: 10px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.chat-input button:hover {
+  background: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #chat-libre {
+    max-width: 100%;
+    padding: 10px;
+  }
+  .mensaje {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  .chat-input input, .chat-input button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+/* ==== Estilo especial para sugerencias IA ==== */
+.mensaje.ia-sugerencia {
+  background: #fff9e6;          /* fondo amarillento para destacarlas */
+  border: 1px solid #f0c36d;    /* borde dorado */
+  color: #5c4400;
+  font-style: italic;
+}
+
+.mensaje.ia-sugerencia strong {
+  color: #b36b00;               /* resalta títulos dentro de la sugerencia */
+}
+
+details {
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px dashed #999;
+  border-radius: 6px;
+  background: #f8f8f8;
+  font-family: monospace;
+  font-size: 14px;
+  color: #333;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 8px;
+}
+
+details[open] summary {
+  color: #0056b3;
+}
+
+.respuesta-ia {
+  background: #fff;
+  border-left: 4px solid #1e88e5;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+.respuesta-ia h3 {
+  margin-top: 0;
+  color: #1e88e5;
+}
+.respuesta-ia .nota {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #777;
+  font-style: italic;
+}
+.respuesta-ia ul, .respuesta-ia ol {
+  margin-left: 20px;
+}

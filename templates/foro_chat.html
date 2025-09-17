@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asistente IA Académico</title>
+  <link rel="stylesheet" href="/static/foro_chat.css" />
+
+  <!-- 📑 Parser de Markdown (para que se vea bien el análisis IA) -->
+  <script type="module">
+    import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+    window.marked = marked;  // disponible global para ui.js
+  </script>
+
+  <!-- 🚀 Nuevo JS modular -->
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <img src="/static/logo_hospital.png" alt="Logo Hospital" class="header-logo" />
+    <h1>Asistente IA para Consultas Académicas de Manera Responsable en Entornos Virtuales de Aprendizaje</h1>
+    <img src="/static/logo_openlab.png" alt="Logo OpenLab" class="header-logo" />
+  </header>
+
+  <!-- ⚖️ Banner ético -->
+  <section id="etica-banner" class="info-banner oculto" role="region" aria-label="Uso responsable de IA">
+    <p>
+      Este asistente usa IA para apoyar, no reemplazar, decisiones. Podés optar por no usar el análisis automático.      
+    </p>
+    <label>
+      <input type="checkbox" id="consent-ia" />
+      Acepto usar análisis IA en mis consultas
+    </label>
+    <button id="cerrar-banner" type="button" class="alt">Entendido</button>
+  </section>
+
+  <main class="card">
+    <!-- Selector de curso (siempre visible) -->
+    <div>
+      <label for="curso">Elegí un curso:</label>
+      <select id="curso" aria-label="Selector de curso"></select>
+    </div>
+
+    <!-- BLOQUE DE PREGUNTAS SUGERIDAS -->
+    <div id="bloque-estructuradas">
+      <label for="faq">Preguntas sugeridas:</label>
+      <select id="faq" aria-label="Preguntas sugeridas">
+        <option value="">-- Elegí una pregunta --</option>
+      </select>
+    </div>
+
+    <!-- Botón para pasar a modo libre -->
+    <div class="botones">
+      <button id="btn-otra" class="alt" type="button" onclick="setModoLibre(true)">✍️ Hacer otra pregunta</button>
+    </div>
+
+    <!-- Input manual (modo libre) -->
+    <div id="manual-group" class="oculto" aria-hidden="true">
+      <label for="pregunta">Escribí tu consulta:</label>
+      <input
+        type="text"
+        id="pregunta"
+        placeholder="Ej.: ¿Cuántos foros hay? / Alumnos del curso Anatomía I"
+        autocomplete="off"
+      />
+    </div>
+
+    <!-- Controles de listado -->
+    <div class="botones" aria-label="Controles de listado">
+      <label for="page-size" class="lbl-inline">Filas por página:</label>
+      <select id="page-size" aria-label="Filas por página">
+        <option>50</option>
+        <option selected>100</option>
+        <option>200</option>
+        <option>500</option>
+      </select>
+    </div>
+
+    <!-- Botones normales (modo sugeridas) -->
+    <div id="botones-normales" class="botones">
+      <button id="btn-enviar" class="enviar" type="button" onclick="enviarPregunta()">📥 Enviar</button>
+      <button id="btn-limpiar" class="limpiar" type="button" onclick="limpiar()">🧹 Limpiar</button>
+    </div>
+
+    <!-- Botones modo libre -->
+    <div id="botones-libres" class="botones oculto">
+      <button id="btn-volver" class="alt" type="button" onclick="setModoLibre(false)">← Volver</button>
+      <button id="btn-enviar-libre" class="enviar" type="button" onclick="enviarPregunta()">📥 Enviar</button>
+      <button id="btn-limpiar-libre" class="limpiar" type="button" onclick="limpiar()">🧹 Limpiar</button>
+    </div>
+
+    <!-- Respuesta -->
+    <div id="respuesta" class="respuesta" role="region" aria-live="polite"></div>
+
+    <!-- Consulta generada -->
+    <div id="query-sql" class="query-sql oculto" aria-hidden="true"></div>
+
+    <!-- Ayuda -->
+    <div class="faq-footer">
+      <button id="btn-ayuda" type="button" onclick="toggleFAQ()">¿Cómo funciona este asistente?</button>
+    </div>
+
+    <div id="instrucciones" class="instrucciones oculto" aria-hidden="true">
+      <!-- acá va la guía de uso -->
+    </div>
+
+    <!-- Autorización -->
+    <div class="checkbox-autorizacion">
+      <label for="guardar">
+        <input type="checkbox" id="guardar" />
+        Autorizo que se registren mis consultas de manera anónima para mejorar este asistente.
+      </label>
+    </div>
+  </main>
+
+  <footer>
+    Sala de Docencia e Investigación – Hospital Larrain de Berisso | OpenLab – Comunidad de IA Responsable y Código Abierto
+  </footer>
+</body>
+</html>
