@@ -105,8 +105,8 @@
     },
     {
       "pregunta": "¿Qué mensajes del foro en este curso aún no recibieron ninguna respuesta útil? (IA)",
-      "descripcion": "Identificá preguntas o pedidos de ayuda que no tengan respuestas útiles (que aclaren o propongan solución). Considerá ‘yo también’, ‘gracias’ o respuestas muy cortas como no útiles. Devolvé lista con autor, fecha, tema y breve cita de la pregunta.",
-      "sql": "SELECT d.id AS discusion_id, u.firstname, u.lastname, fp.message, fp.parent, FROM_UNIXTIME(fp.created) AS fecha, d.name AS tema, f.name AS foro,\n       (SELECT COUNT(*) FROM {PREFIX}forum_posts r WHERE r.discussion = d.id AND r.parent = fp.id) AS respuestas_al_inicial\nFROM {PREFIX}forum_posts fp\nJOIN {PREFIX}forum_discussions d ON fp.discussion = d.id\nJOIN {PREFIX}forum f ON d.forum = f.id\nJOIN {PREFIX}course c ON f.course = c.id\nJOIN {PREFIX}user u ON fp.userid = u.id\nWHERE c.fullname = __CURSO__ AND fp.parent = 0\nORDER BY d.id, fp.created ASC;"
+      "descripcion": "Analizá los mensajes del foro en este curso y detectá qué preguntas no recibieron ninguna respuesta útil. Una respuesta útil debe intentar aclarar, resolver o aportar información, no simplemente repetir la duda o decir 'yo también'. Devolvé una lista con las preguntas sin respuesta real.",
+      "sql": "SELECT d.id AS discusion_id, u.firstname, u.lastname, fp.message, fp.parent FROM {PREFIX}forum_posts fp JOIN {PREFIX}forum_discussions d ON fp.discussion = d.id JOIN {PREFIX}forum f ON d.forum = f.id JOIN {PREFIX}course c ON f.course = c.id JOIN {PREFIX}user u ON fp.userid = u.id WHERE c.fullname = '__CURSO__' ORDER BY d.id, fp.created;"
     }
   ],
   "invisibles": []
