@@ -245,3 +245,19 @@ document.addEventListener("DOMContentLoaded", () => {
 window.enviarPregunta = enviarPregunta;
 window.limpiar = limpiar;
 window.setModoLibre = setModoLibre;
+
+// =========================
+// Función para mostrar/ocultar ayuda
+// =========================
+window.toggleFAQ = function () {
+  const instrucciones = document.getElementById("instrucciones");
+  if (!instrucciones) return;
+
+  if (instrucciones.classList.contains("oculto")) {
+    instrucciones.classList.remove("oculto");
+    instrucciones.setAttribute("aria-hidden", "false");
+  } else {
+    instrucciones.classList.add("oculto");
+    instrucciones.setAttribute("aria-hidden", "true");
+  }
+};
