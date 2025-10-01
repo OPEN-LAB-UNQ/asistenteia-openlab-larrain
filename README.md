@@ -6,7 +6,10 @@ Este proyecto es una iniciativa conjunta de \*\*OPEN LAB - Universidad Nacional 
 
 Se trata de un asistente inteligente construido con Flask y Gunicorn, orientado a mejorar la gestión y el acceso a la información en contextos institucionales.
 
+---
 
+versión live https://asistenteia.entornodepruebas.com.ar/foro/ 
+clave 2817
 
 ---
 
