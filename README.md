@@ -1,12 +1,12 @@
-# 🧠 ASISTENTE IA - OPEN LAB UNQ & HOSPITAL LARRAÍN
+# ASISTENTE IA - OPEN LAB UNQ & HOSPITAL LARRAÍN
 
-Este proyecto es una iniciativa conjunta de **OPEN LAB - Universidad Nacional de Quilmes** y el **Hospital Mario Larraín de Berisso**.
+Este proyecto es una iniciativa conjunta de OPEN LAB - Universidad Nacional de Quilmes y el Hospital Mario Larraín de Berisso.
 
-Se trata de un asistente inteligente construido con **Flask y Gunicorn**, orientado a mejorar la gestión y el acceso a la información en entornos educativos y de salud, con un fuerte enfoque en **ética, transparencia y privacidad**.
+Se trata de un asistente inteligente construido con Flask y Gunicorn, orientado a mejorar la gestión y el acceso a la información en entornos educativos y de salud, con un fuerte enfoque en ética, transparencia y privacidad.
 
 ---
 
-## 📑 ÍNDICE
+## INDICE
 
 1. Acceso Rápido  
 2. Características Principales  
@@ -20,30 +20,30 @@ Se trata de un asistente inteligente construido con **Flask y Gunicorn**, orient
 
 ---
 
-## 🚀 1. ACCESO RÁPIDO
+## 1. ACCESO RAPIDO
 
-- 🌐 Sitio Web:  
-  https://asistenteia.entornodepruebas.com.ar/foro/
+Sitio Web:  
+https://asistenteia.entornodepruebas.com.ar/foro/
 
-- 🔑 Clave de acceso:  
-  2817
+Clave de acceso:  
+2817
 
 ---
 
-## ⚙️ 2. CARACTERÍSTICAS PRINCIPALES
+## 2. CARACTERISTICAS PRINCIPALES
 
-### 🧭 Marco Ético Integrado
+### Marco Ético Integrado
 - Alineado con la Guía Argentina de IA Responsable (2025)  
 - Basado en recomendaciones de UNESCO  
 
-### 🔐 Seguridad Robusta
+### Seguridad Robusta
 - Solo consultas SELECT en SQL  
 - Protección contra inyección SQL  
 - Bloqueo de prompt injection  
 - Autenticación por clave  
 - Pool de conexiones a la base de datos  
 
-### 🤖 Funcionalidades Inteligentes
+### Funcionalidades Inteligentes
 - Preguntas predefinidas por categoría  
 - Modo libre para consultas personalizadas  
 - Sugerencias automáticas  
@@ -51,7 +51,7 @@ Se trata de un asistente inteligente construido con **Flask y Gunicorn**, orient
 - Detección de lenguaje ofensivo  
 - Identificación de preguntas sin respuesta  
 
-### 🏗️ Arquitectura Profesional
+### Arquitectura Profesional
 - Diseño modular con Flask Blueprints  
 - Cache con TTL para consultas frecuentes  
 - Preparado para alta concurrencia  
@@ -59,7 +59,7 @@ Se trata de un asistente inteligente construido con **Flask y Gunicorn**, orient
 
 ---
 
-## 🧰 3. TECNOLOGÍAS UTILIZADAS
+## 3. TECNOLOGIAS UTILIZADAS
 
 - Python 3.9+, Flask, Gunicorn  
 - Nginx, Certbot / Let's Encrypt  
@@ -70,7 +70,7 @@ Se trata de un asistente inteligente construido con **Flask y Gunicorn**, orient
 
 ---
 
-## 🖥️ 4. REQUISITOS DEL SISTEMA
+## 4. REQUISITOS DEL SISTEMA
 
 - Servidor Linux (CentOS / RHEL / Fedora recomendado)  
 - Acceso root o sudo  
@@ -81,7 +81,7 @@ Se trata de un asistente inteligente construido con **Flask y Gunicorn**, orient
 
 ---
 
-## 📁 5. ESTRUCTURA DE ARCHIVOS
+## 5. ESTRUCTURA DE ARCHIVOS
 
 ```
 .env
@@ -99,7 +99,7 @@ foro_chat.html
 
 ---
 
-## ⚡ 6. INSTALACIÓN PASO A PASO
+## 6. INSTALACION PASO A PASO
 
 ### Paso 1: Crear Directorio
 
@@ -153,7 +153,7 @@ firewall-cmd --reload
 
 ---
 
-## ▶️ 7. EJECUCIÓN
+## 7. EJECUCION
 
 ```bash
 cd /home/asistenteia
@@ -165,7 +165,7 @@ http://tu-ip:5000/foro/
 
 ---
 
-## ⚖️ 8. MARCO ÉTICO
+## 8. MARCO ETICO
 
 Alineado con:
 - Guía Argentina de IA Responsable (2025)  
@@ -186,7 +186,7 @@ Alineado con:
 
 ---
 
-## 📌 9. CONTACTO Y VERSIÓN
+## 9. CONTACTO Y VERSION
 
 - Versión: 1.0.1 – Marzo 2026  
 - Licencia: MIT  
