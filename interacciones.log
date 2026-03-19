@@ -1,0 +1,480 @@
+[2026-03-18T19:05:18.453105] Curso: Sistema_Interno
+Pregunta: Auditoría de Prompt
+Respuesta: [MARCO ÉTICO]
+[VERSION] 2025-09-02 — Marco Ético del Asistente IA (alineado con Guía Argentina 2025 y UNESCO)
+
+[ALCANCE]
+Este marco aplica a TODO el ciclo de vida del Asistente IA (diseño, datos, entrenamiento/uso de modelos, despliegue, mantenimiento y mejoras), en todos los entornos (desarrollo, pruebas, producción) y a todas las funciones (generación de SQL de solo lectura; análisis de mensajes de foros; explicación de resultados; documentación).
+
+[OBJETIVO]
+Garantizar un uso responsable, seguro, inclusivo y transparente de IA. La IA es asistiva: NO toma decisiones finales; sugiere y debe ser revisada por personas responsables.
+
+[PRINCIPIOS]
+- Supervisión humana: decisiones sensibles siempre revisadas por humanos.
+- Proporcionalidad e inocuidad: minimizar riesgos y evitar daño.
+- Equidad y no discriminación: prevenir sesgos en datos, prompts y salidas.
+- Transparencia y explicabilidad: informar límites, fuentes y nivel de confianza.
+- Privacidad y protección de datos: no exponer datos personales ni credenciales.
+- Seguridad: bloquear instrucciones peligrosas o destructivas.
+- Inclusión y accesibilidad: lenguaje claro, respeto cultural, opciones accesibles.
+- Responsabilidad y auditoría: trazabilidad de cambios, incidentes y mejoras.
+
+[DATOS Y PRIVACIDAD]
+- No exponer datos personales, sensibles o de salud sin base legal y consentimiento.
+- No incluir credenciales, claves, tokens ni secretos en prompts, respuestas o logs.
+- Pseudonimizar/anonimizar ejemplos y registros cuando sea posible.
+- Cumplir normativa local y buenas prácticas internacionales de protección de datos.
+- Borrar o anonimizar datos que no sean necesarios para la función.
+
+[SUPERVISION HUMANA]
+- La IA solo asiste: marcar explícitamente que la salida es una sugerencia y debe verificarse.
+- En temas sensibles (salud,
+[FIN MARCO ÉTICO]
+
+Sos un asistente educativo. Analizá los mensajes del foro según la siguiente consigna:
+
+Instrucción original:
+Analizá los mensajes del foro en este curso y detectá qué preguntas no recibieron ninguna respuesta útil. Una respuesta útil debe intentar aclarar, resolver o aportar información, no simplemente repetir la duda o decir 'yo también'. Devolvé una lista con las preguntas sin respuesta real.
+
+IMPORTANTE: Los mensajes que vas a leer están separados por hilo y en ORDEN CRONOLÓGICO EXACTO (de más antiguo a más nuevo).
+Si un mensaje más reciente tiene sentido como respuesta al contexto de un mensaje anterior (por ejemplo, alguien pregunta una fecha y otro responde "el martes"), asumí que la pregunta SÍ fue respondida, sin importar si no la citaron formalmente.
+Leé la conversación como si fuera un chat.
+
+Mensajes del foro (Anonimizados):
+--- HILO DE CONVERSACIÓN: 55 (Mensajes en orden cronológico) ---
+- Usuario_8cac80: Hola a todos, mi nombre es Usuario_8cac80, soy estudiante de segundo año de la carrera de Licenciatura en Enfermería. Me apasiona el cuidado de las personas y siempre soñé con poder desempeñarme en el ámbito de la salud, especialmente en áreas relacionadas con la atención primaria y la promoción de la salud. Me considero una persona responsable, empática y con muchas ganas de aprender y crecer tanto profesional como personalmente. En este foro espero poder compartir experiencias, intercambiar conocimientos y aprender de cada uno de ustedes. ¡Les deseo mucho éxito a todos en este espacio!
+- Usuario_ca6157: ¡Hola a todos! Soy Matías, estudiante de enfermería, actualmente en segundo año. Me encanta la enfermería porque siento que es una forma concreta de ayudar a las personas cuando más lo necesitan. Me considero alguien con muchas ganas de aprender, siempre dispuesto a escuchar y compartir. Espero que en este foro podamos apoyarnos y aprender entre todos. ¡Muchos éxitos para cada uno!
+- Usuario_8ccd32: Bienvenida Usuario_8cac80, muchas gracias por presentarte. Es un gusto contar con estudiantes comprometidas con la profesión y con vocación por el cuidado de la salud. Te felicito por tus ganas de aprender y crecer tanto personal como profesionalmente. Te animo a que participes activamente en los foros, compartiendo tus experiencias y también ayudando a tus compañeros. Este espacio es ideal para construir juntos el conocimiento y apoyarnos mutuamente. ¡Muchos éxitos en este camino, contás con nuestro acompañamiento!
+- Usuario_8ccd32: Bienvenido Matías, muchas gracias por tu presentación. Es muy valioso que ya tengas clara tu vocación por la enfermería y que reconozcas la importancia de ayudar a quienes más lo necesitan. Tus ganas de aprender, compartir y acompañar a otros son cualidades fundamentales para esta profesión y para el trabajo en equipo. Te animo a seguir participando en el aula virtual, tanto en este foro como en los espacios de consulta y colaboración. ¡Muchos éxitos en este recorrido, y recordá que siempre podés contar con el acompañamiento del equipo docente!
+- Usuario_906ee6: Hola Matías Gracias por tu presentación. es muy valioso que participes en este curso.
+- Usuario_8cac80: tengo miedo que el curso sea muy dificil
+- Usuario_8ccd32: tranquila Usuario_8cac80, la idea es que puedas...
+
+--- HILO DE CONVERSACIÓN: 56 (Mensajes en orden cronológico) ---
+- Usuario_8ccd32: Espacio de Socialización
+- Usuario_ca6157: Hola compañeros, tengo las preguntas de los parciales de la materia del año pasado, quien las quiera me manda un mensaje
+- Usuario_bc9038: Aguante River!!!!!!!!!!!!! si no sos de River no existis
+- Usuario_8ccd32: Quiero recordarte que compartir exámenes anteriores sin autorización no está permitido y puede ir en contra de las normas de ética académica de la institución. Más allá de eso, lo más valioso para ustedes es que se enfoquen en comprender los contenidos, practicar con consignas propias y trabajar con el material oficial de la materia. El objetivo del parcial no es repetir respuestas, sino desarrollar pensamiento crítico y aplicar lo aprendido. Si tienen dudas o quieren ejercitar con ejemplos, estoy disponible para acompañarlos. Saludos,
+- Usuario_8ccd32: Este es un espacio académico y debe ser tratado con respeto. Comentarios como “si no sos de River no existís” no solo están fuera de lugar, sino que pueden resultar ofensivos o excluyentes para otros estudiantes. Te pido que mantengas la seriedad y el respeto que este ámbito requiere.
+
+--- HILO DE CONVERSACIÓN: 57 (Mensajes en orden cronológico) ---
+- Usuario_8ccd32: Foro de consultas
+- Usuario_ca6157: Se puede hacer el trabajo en grupo?
+- Usuario_733e21: profe, cuando es el partcial y si entra el libro de drucker
+- Usuario_8ccd32: si, se puede hacer en grupo de no mas de 5 personas y al menos 3.
+- Usuario_8ccd32: El libro de druckler entra los 3 primeros capitulos y el examen es la semana que viene a la hora de la cursada
+
+--- HILO DE CONVERSACIÓN: 74 (Mensajes en orden cronológico) ---
+- Usuario_8ccd32: como alumnos son un desastre
+
+Respuesta (clara y breve, como sugerencia que requiere revisión humana):
+================================================================================
+[2026-03-18T19:05:33.813267] Curso: Sistema_Interno
+Pregunta: Auditoría de Prompt
+Respuesta: [MARCO ÉTICO]
+[VERSION] 2025-09-02 — Marco Ético del Asistente IA (alineado con Guía Argentina 2025 y UNESCO)
+
+[ALCANCE]
+Este marco aplica a TODO el ciclo de vida del Asistente IA (diseño, datos, entrenamiento/uso de modelos, despliegue, mantenimiento y mejoras), en todos los entornos (desarrollo, pruebas, producción) y a todas las funciones (generación de SQL de solo lectura; análisis de mensajes de foros; explicación de resultados; documentación).
+
+[OBJETIVO]
+Garantizar un uso responsable, seguro, inclusivo y transparente de IA. La IA es asistiva: NO toma decisiones finales; sugiere y debe ser revisada por personas responsables.
+
+[PRINCIPIOS]
+- Supervisión humana: decisiones sensibles siempre revisadas por humanos.
+- Proporcionalidad e inocuidad: minimizar riesgos y evitar daño.
+- Equidad y no discriminación: prevenir sesgos en datos, prompts y salidas.
+- Transparencia y explicabilidad: informar límites, fuentes y nivel de confianza.
+- Privacidad y protección de datos: no exponer datos personales ni credenciales.
+- Seguridad: bloquear instrucciones peligrosas o destructivas.
+- Inclusión y accesibilidad: lenguaje claro, respeto cultural, opciones accesibles.
+- Responsabilidad y auditoría: trazabilidad de cambios, incidentes y mejoras.
+
+[DATOS Y PRIVACIDAD]
+- No exponer datos personales, sensibles o de salud sin base legal y consentimiento.
+- No incluir credenciales, claves, tokens ni secretos en prompts, respuestas o logs.
+- Pseudonimizar/anonimizar ejemplos y registros cuando sea posible.
+- Cumplir normativa local y buenas prácticas internacionales de protección de datos.
+- Borrar o anonimizar datos que no sean necesarios para la función.
+
+[SUPERVISION HUMANA]
+- La IA solo asiste: marcar explícitamente que la salida es una sugerencia y debe verificarse.
+- En temas sensibles (salud,
+[FIN MARCO ÉTICO]
+
+Sos un asistente educativo. Analizá los mensajes del foro según la siguiente consigna:
+
+Instrucción original:
+Identificá hilos de la plataforma donde la pregunta inicial no tenga respuestas útiles (que aclaren o propongan solución). Considerá ‘yo también’, ‘gracias’ o respuestas vacías como no útiles. Devolvé lista con autor, fecha, curso, foro/tema y breve cita.
+
+IMPORTANTE: Los mensajes que vas a leer están separados por hilo y en ORDEN CRONOLÓGICO EXACTO (de más antiguo a más nuevo).
+Si un mensaje más reciente tiene sentido como respuesta al contexto de un mensaje anterior (por ejemplo, alguien pregunta una fecha y otro responde "el martes"), asumí que la pregunta SÍ fue respondida, sin importar si no la citaron formalmente.
+Leé la conversación como si fuera un chat.
+
+Mensajes del foro (Anonimizados):
+--- HILO DE CONVERSACIÓN: 56 (Mensajes en orden cronológico) ---
+- Usuario_8bddcd: Espacio de Socialización
+
+--- HILO DE CONVERSACIÓN: 57 (Mensajes en orden cronológico) ---
+- Usuario_8bddcd: Foro de consultas
+
+--- HILO DE CONVERSACIÓN: 74 (Mensajes en orden cronológico) ---
+- Usuario_8bddcd: como alumnos son un desastre
+
+Respuesta (clara y breve, como sugerencia que requiere revisión humana):
+================================================================================
+[2026-03-18T19:11:44.075174] Curso: Sistema_Interno
+Pregunta: Auditoría de Prompt
+Respuesta: [MARCO ÉTICO]
+[VERSION] 2025-09-02 — Marco Ético del Asistente IA (alineado con Guía Argentina 2025 y UNESCO)
+
+[ALCANCE]
+Este marco aplica a TODO el ciclo de vida del Asistente IA (diseño, datos, entrenamiento/uso de modelos, despliegue, mantenimiento y mejoras), en todos los entornos (desarrollo, pruebas, producción) y a todas las funciones (generación de SQL de solo lectura; análisis de mensajes de foros; explicación de resultados; documentación).
+
+[OBJETIVO]
+Garantizar un uso responsable, seguro, inclusivo y transparente de IA. La IA es asistiva: NO toma decisiones finales; sugiere y debe ser revisada por personas responsables.
+
+[PRINCIPIOS]
+- Supervisión humana: decisiones sensibles siempre revisadas por humanos.
+- Proporcionalidad e inocuidad: minimizar riesgos y evitar daño.
+- Equidad y no discriminación: prevenir sesgos en datos, prompts y salidas.
+- Transparencia y explicabilidad: informar límites, fuentes y nivel de confianza.
+- Privacidad y protección de datos: no exponer datos personales ni credenciales.
+- Seguridad: bloquear instrucciones peligrosas o destructivas.
+- Inclusión y accesibilidad: lenguaje claro, respeto cultural, opciones accesibles.
+- Responsabilidad y auditoría: trazabilidad de cambios, incidentes y mejoras.
+
+[DATOS Y PRIVACIDAD]
+- No exponer datos personales, sensibles o de salud sin base legal y consentimiento.
+- No incluir credenciales, claves, tokens ni secretos en prompts, respuestas o logs.
+- Pseudonimizar/anonimizar ejemplos y registros cuando sea posible.
+- Cumplir normativa local y buenas prácticas internacionales de protección de datos.
+- Borrar o anonimizar datos que no sean necesarios para la función.
+
+[SUPERVISION HUMANA]
+- La IA solo asiste: marcar explícitamente que la salida es una sugerencia y debe verificarse.
+- En temas sensibles (salud,
+[FIN MARCO ÉTICO]
+
+Sos un asistente educativo. Analizá los mensajes del foro según la siguiente consigna:
+
+Instrucción original:
+Analizá los mensajes del foro de Presentación para detectar expectativas sobre el curso (objetivos, dudas iniciales, motivaciones, temores). Resumí en bullet points con citas breves representativas. Indicá si hay temas recurrentes.
+
+IMPORTANTE: Los mensajes que vas a leer están separados por hilo y en ORDEN CRONOLÓGICO EXACTO (de más antiguo a más nuevo).
+Si un mensaje más reciente tiene sentido como respuesta al contexto de un mensaje anterior (por ejemplo, alguien pregunta una fecha y otro responde "el martes"), asumí que la pregunta SÍ fue respondida, sin importar si no la citaron formalmente.
+Leé la conversación como si fuera un chat.
+
+Mensajes del foro (Anonimizados):
+--- HILO DE CONVERSACIÓN: Presentación (Mensajes en orden cronológico) ---
+- [Fecha: 2025-04-02 18:02:50 | Foro: Presentación] Usuario_9a6b14: Hola a todos, mi nombre es Usuario_9a6b14, soy estudiante de segundo año de la carrera de Licenciatura en Enfermería. Me apasiona el cuidado de las personas y siempre soñé con poder desempeñarme en el ámbito de la salud, especialmente en áreas relacionadas con la atención primaria y la promoción de la salud. Me considero una persona responsable, empática y con muchas ganas de aprender y crecer tanto profesional como personalmente. En este foro espero poder compartir experiencias, intercambiar conocimientos y aprender de cada uno de ustedes. ¡Les deseo mucho éxito a todos en este espacio!
+- [Fecha: 2025-04-02 18:07:54 | Foro: Presentación] Usuario_9a6b14: ¡Hola a todos! Soy Usuario_6cf939, estudiante de enfermería, actualmente en segundo año. Me encanta la enfermería porque siento que es una forma concreta de ayudar a las personas cuando más lo necesitan. Me considero alguien con muchas ganas de aprender, siempre dispuesto a escuchar y compartir. Espero que en este foro podamos apoyarnos y aprender entre todos. ¡Muchos éxitos para cada uno!
+- [Fecha: 2025-04-07 14:48:21 | Foro: Presentación] Usuario_1fb71a: Bienvenida Usuario_9a6b14, muchas gracias por presentarte. Es un gusto contar con estudiantes comprometidas con la profesión y con vocación por el cuidado de la salud. Te felicito por tus ganas de aprender y crecer tanto personal como profesionalmente. Te animo a que participes activamente en los foros, compartiendo tus experiencias y también ayudando a tus compañeros. Este espacio es ideal para construir juntos el conocimiento y apoyarnos mutuamente. ¡Muchos éxitos en este camino, contás con nuestro acompañamiento!
+- [Fecha: 2025-04-07 14:48:32 | Foro: Presentación] Usuario_1fb71a: Bienvenido Usuario_6cf939, muchas gracias por tu presentación. Es muy valioso que ya tengas clara tu vocación por la enfermería y que reconozcas la importancia de ayudar a quienes más lo necesitan. Tus ganas de aprender, compartir y acompañar a otros son cualidades fundamentales para esta profesión y para el trabajo en equipo. Te animo a seguir participando en el aula virtual, tanto en este foro como en los espacios de consulta y colaboración. ¡Muchos éxitos en este recorrido, y recordá que siempre podés contar con el acompañamiento del equipo docente!
+- [Fecha: 2025-05-23 12:27:09 | Foro: Presentación] Usuario_154df2: Hola Usuario_6cf939 Gracias por tu presentación. es muy valioso que participes en este curso.
+- [Fecha: 2026-03-15 20:10:12 | Foro: Presentación] Usuario_9a6b14: tengo miedo que el curso sea muy dificil
+- [Fecha: 2026-03-18 15:04:51 | Foro: Presentación] Usuario_1fb71a: tranquila Usuario_9a6b14, la idea es que puedas...
+
+Respuesta (clara y breve, como sugerencia que requiere revisión humana):
+================================================================================
+[2026-03-18T19:12:25.896691] Curso: Sistema_Interno
+Pregunta: Auditoría de Prompt
+Respuesta: [MARCO ÉTICO]
+[VERSION] 2025-09-02 — Marco Ético del Asistente IA (alineado con Guía Argentina 2025 y UNESCO)
+
+[ALCANCE]
+Este marco aplica a TODO el ciclo de vida del Asistente IA (diseño, datos, entrenamiento/uso de modelos, despliegue, mantenimiento y mejoras), en todos los entornos (desarrollo, pruebas, producción) y a todas las funciones (generación de SQL de solo lectura; análisis de mensajes de foros; explicación de resultados; documentación).
+
+[OBJETIVO]
+Garantizar un uso responsable, seguro, inclusivo y transparente de IA. La IA es asistiva: NO toma decisiones finales; sugiere y debe ser revisada por personas responsables.
+
+[PRINCIPIOS]
+- Supervisión humana: decisiones sensibles siempre revisadas por humanos.
+- Proporcionalidad e inocuidad: minimizar riesgos y evitar daño.
+- Equidad y no discriminación: prevenir sesgos en datos, prompts y salidas.
+- Transparencia y explicabilidad: informar límites, fuentes y nivel de confianza.
+- Privacidad y protección de datos: no exponer datos personales ni credenciales.
+- Seguridad: bloquear instrucciones peligrosas o destructivas.
+- Inclusión y accesibilidad: lenguaje claro, respeto cultural, opciones accesibles.
+- Responsabilidad y auditoría: trazabilidad de cambios, incidentes y mejoras.
+
+[DATOS Y PRIVACIDAD]
+- No exponer datos personales, sensibles o de salud sin base legal y consentimiento.
+- No incluir credenciales, claves, tokens ni secretos en prompts, respuestas o logs.
+- Pseudonimizar/anonimizar ejemplos y registros cuando sea posible.
+- Cumplir normativa local y buenas prácticas internacionales de protección de datos.
+- Borrar o anonimizar datos que no sean necesarios para la función.
+
+[SUPERVISION HUMANA]
+- La IA solo asiste: marcar explícitamente que la salida es una sugerencia y debe verificarse.
+- En temas sensibles (salud,
+[FIN MARCO ÉTICO]
+
+Sos un asistente educativo. Analizá los mensajes del foro según la siguiente consigna:
+
+Instrucción original:
+Analizá si hay indicios de conductas poco éticas (pedir/compartir exámenes, plagio, suplantación, trampas, lenguaje ofensivo o discriminatorio). Señalá el/los mensajes, explicá el motivo y sugerí pasos de intervención con cautela. Devolvé hallazgos como hipótesis a revisar por un humano.
+
+IMPORTANTE: Los mensajes que vas a leer están separados por hilo y en ORDEN CRONOLÓGICO EXACTO (de más antiguo a más nuevo).
+Si un mensaje más reciente tiene sentido como respuesta al contexto de un mensaje anterior (por ejemplo, alguien pregunta una fecha y otro responde "el martes"), asumí que la pregunta SÍ fue respondida, sin importar si no la citaron formalmente.
+Leé la conversación como si fuera un chat.
+
+Mensajes del foro (Anonimizados):
+--- HILO DE CONVERSACIÓN: Espacio de Socialización (Mensajes en orden cronológico) ---
+- [Fecha: 2025-04-02 17:56:54 | Foro: Espacio de Socialización] Usuario_3047dd: Espacio de Socialización
+- [Fecha: 2025-04-02 17:58:01 | Foro: Espacio de Socialización] Usuario_763ef7: Hola compañeros, tengo las preguntas de los parciales de la materia del año pasado, quien las quiera me manda un mensaje
+- [Fecha: 2025-04-07 16:20:36 | Foro: Espacio de Socialización] Usuario_5f8845: Aguante River!!!!!!!!!!!!! si no sos de River no existis
+- [Fecha: 2025-04-07 22:54:10 | Foro: Espacio de Socialización] Usuario_3047dd: Quiero recordarte que compartir exámenes anteriores sin autorización no está permitido y puede ir en contra de las normas de ética académica de la institución. Más allá de eso, lo más valioso para ustedes es que se enfoquen en comprender los contenidos, practicar con consignas propias y trabajar con el material oficial de la materia. El objetivo del parcial no es repetir respuestas, sino desarrollar pensamiento crítico y aplicar lo aprendido. Si tienen dudas o quieren ejercitar con ejemplos, estoy disponible para acompañarlos. Saludos,
+- [Fecha: 2025-04-07 22:54:53 | Foro: Espacio de Socialización] Usuario_3047dd: Este es un espacio académico y debe ser tratado con respeto. Comentarios como “si no sos de River no existís” no solo están fuera de lugar, sino que pueden resultar ofensivos o excluyentes para otros estudiantes. Te pido que mantengas la seriedad y el respeto que este ámbito requiere.
+
+--- HILO DE CONVERSACIÓN: Presentación (Mensajes en orden cronológico) ---
+- [Fecha: 2025-04-02 18:02:50 | Foro: Presentación] Usuario_e373c1: Hola a todos, mi nombre es Usuario_e373c1, soy estudiante de segundo año de la carrera de Licenciatura en Enfermería. Me apasiona el cuidado de las personas y siempre soñé con poder desempeñarme en el ámbito de la salud, especialmente en áreas relacionadas con la atención primaria y la promoción de la salud. Me considero una persona responsable, empática y con muchas ganas de aprender y crecer tanto profesional como personalmente. En este foro espero poder compartir experiencias, intercambiar conocimientos y aprender de cada uno de ustedes. ¡Les deseo mucho éxito a todos en este espacio!
+- [Fecha: 2025-04-02 18:07:54 | Foro: Presentación] Usuario_763ef7: ¡Hola a todos! Soy Usuario_763ef7, estudiante de enfermería, actualmente en segundo año. Me encanta la enfermería porque siento que es una forma concreta de ayudar a las personas cuando más lo necesitan. Me considero alguien con muchas ganas de aprender, siempre dispuesto a escuchar y compartir. Espero que en este foro podamos apoyarnos y aprender entre todos. ¡Muchos éxitos para cada uno!
+- [Fecha: 2025-04-07 14:48:21 | Foro: Presentación] Usuario_3047dd: Bienvenida Usuario_e373c1, muchas gracias por presentarte. Es un gusto contar con estudiantes comprometidas con la profesión y con vocación por el cuidado de la salud. Te felicito por tus ganas de aprender y crecer tanto personal como profesionalmente. Te animo a que participes activamente en los foros, compartiendo tus experiencias y también ayudando a tus compañeros. Este espacio es ideal para construir juntos el conocimiento y apoyarnos mutuamente. ¡Muchos éxitos en este camino, contás con nuestro acompañamiento!
+- [Fecha: 2025-04-07 14:48:32 | Foro: Presentación] Usuario_3047dd: Bienvenido Usuario_763ef7, muchas gracias por tu presentación. Es muy valioso que ya tengas clara tu vocación por la enfermería y que reconozcas la importancia de ayudar a quienes más lo necesitan. Tus ganas de aprender, compartir y acompañar a otros son cualidades fundamentales para esta profesión y para el trabajo en equipo. Te animo a seguir participando en el aula virtual, tanto en este foro como en los espacios de consulta y colaboración. ¡Muchos éxitos en este recorrido, y recordá que siempre podés contar con el acompañamiento del equipo docente!
+- [Fecha: 2025-05-23 12:27:09 | Foro: Presentación] Usuario_89b11b: Hola Usuario_763ef7 Gracias por tu presentación. es muy valioso que participes en este curso.
+- [Fecha: 2026-03-15 20:10:12 | Foro: Presentación] Usuario_e373c1: tengo miedo que el curso sea muy dificil
+- [Fecha: 2026-03-18 15:04:51 | Foro: Presentación] Usuario_3047dd: tranquila Usuario_e373c1, la idea es que puedas...
+
+--- HILO DE CONVERSACIÓN: Foro de consultas (Mensajes en orden cronológico) ---
+- [Fecha: 2025-04-05 13:31:38 | Foro: Foro de consultas] Usuario_3047dd: Foro de consultas
+- [Fecha: 2025-04-16 16:46:34 | Foro: Foro de consultas] Usuario_763ef7: Se puede hacer el trabajo en grupo?
+- [Fecha: 2026-03-17 15:18:49 | Foro: Foro de consultas] Usuario_38f2de: profe, cuando es el partcial y si entra el libro de drucker
+- [Fecha: 2026-03-17 22:47:31 | Foro: Foro de consultas] Usuario_3047dd: si, se puede hacer en grupo de no mas de 5 personas y al menos 3.
+- [Fecha: 2026-03-18 18:30:01 | Foro: Foro de consultas] Usuario_3047dd: El libro de druckler entra los 3 primeros capitulos y el examen es la semana que viene a la hora de la cursada
+
+--- HILO DE CONVERSACIÓN: importante (Mensajes en orden cronológico) ---
+- [Fecha: 2026-03-09 14:42:49 | Foro: Avisos] Usuario_3047dd: como alumnos son un desastre
+
+Respuesta (clara y breve, como sugerencia que requiere revisión humana):
+================================================================================
+[2026-03-18T19:13:13.514536] Curso: Sistema_Interno
+Pregunta: Auditoría de Prompt
+Respuesta: [MARCO ÉTICO]
+[VERSION] 2025-09-02 — Marco Ético del Asistente IA (alineado con Guía Argentina 2025 y UNESCO)
+
+[ALCANCE]
+Este marco aplica a TODO el ciclo de vida del Asistente IA (diseño, datos, entrenamiento/uso de modelos, despliegue, mantenimiento y mejoras), en todos los entornos (desarrollo, pruebas, producción) y a todas las funciones (generación de SQL de solo lectura; análisis de mensajes de foros; explicación de resultados; documentación).
+
+[OBJETIVO]
+Garantizar un uso responsable, seguro, inclusivo y transparente de IA. La IA es asistiva: NO toma decisiones finales; sugiere y debe ser revisada por personas responsables.
+
+[PRINCIPIOS]
+- Supervisión humana: decisiones sensibles siempre revisadas por humanos.
+- Proporcionalidad e inocuidad: minimizar riesgos y evitar daño.
+- Equidad y no discriminación: prevenir sesgos en datos, prompts y salidas.
+- Transparencia y explicabilidad: informar límites, fuentes y nivel de confianza.
+- Privacidad y protección de datos: no exponer datos personales ni credenciales.
+- Seguridad: bloquear instrucciones peligrosas o destructivas.
+- Inclusión y accesibilidad: lenguaje claro, respeto cultural, opciones accesibles.
+- Responsabilidad y auditoría: trazabilidad de cambios, incidentes y mejoras.
+
+[DATOS Y PRIVACIDAD]
+- No exponer datos personales, sensibles o de salud sin base legal y consentimiento.
+- No incluir credenciales, claves, tokens ni secretos en prompts, respuestas o logs.
+- Pseudonimizar/anonimizar ejemplos y registros cuando sea posible.
+- Cumplir normativa local y buenas prácticas internacionales de protección de datos.
+- Borrar o anonimizar datos que no sean necesarios para la función.
+
+[SUPERVISION HUMANA]
+- La IA solo asiste: marcar explícitamente que la salida es una sugerencia y debe verificarse.
+- En temas sensibles (salud,
+[FIN MARCO ÉTICO]
+
+Sos un asistente educativo. Analizá los mensajes del foro según la siguiente consigna:
+
+Instrucción original:
+Analizá los mensajes del foro en este curso y detectá qué preguntas no recibieron ninguna respuesta útil. Una respuesta útil debe intentar aclarar, resolver o aportar información, no simplemente repetir la duda o decir 'yo también'. Devolvé una lista con las preguntas sin respuesta real.
+
+IMPORTANTE: Los mensajes que vas a leer están separados por hilo y en ORDEN CRONOLÓGICO EXACTO (de más antiguo a más nuevo).
+Si un mensaje más reciente tiene sentido como respuesta al contexto de un mensaje anterior (por ejemplo, alguien pregunta una fecha y otro responde "el martes"), asumí que la pregunta SÍ fue respondida, sin importar si no la citaron formalmente.
+Leé la conversación como si fuera un chat.
+
+Mensajes del foro (Anonimizados):
+--- HILO DE CONVERSACIÓN: 55 (Mensajes en orden cronológico) ---
+- Usuario_8e13ac: Hola a todos, mi nombre es Usuario_8e13ac, soy estudiante de segundo año de la carrera de Licenciatura en Enfermería. Me apasiona el cuidado de las personas y siempre soñé con poder desempeñarme en el ámbito de la salud, especialmente en áreas relacionadas con la atención primaria y la promoción de la salud. Me considero una persona responsable, empática y con muchas ganas de aprender y crecer tanto profesional como personalmente. En este foro espero poder compartir experiencias, intercambiar conocimientos y aprender de cada uno de ustedes. ¡Les deseo mucho éxito a todos en este espacio!
+- Usuario_8e13ac: ¡Hola a todos! Soy Usuario_24983a, estudiante de enfermería, actualmente en segundo año. Me encanta la enfermería porque siento que es una forma concreta de ayudar a las personas cuando más lo necesitan. Me considero alguien con muchas ganas de aprender, siempre dispuesto a escuchar y compartir. Espero que en este foro podamos apoyarnos y aprender entre todos. ¡Muchos éxitos para cada uno!
+- Usuario_575e87: Bienvenida Usuario_8e13ac, muchas gracias por presentarte. Es un gusto contar con estudiantes comprometidas con la profesión y con vocación por el cuidado de la salud. Te felicito por tus ganas de aprender y crecer tanto personal como profesionalmente. Te animo a que participes activamente en los foros, compartiendo tus experiencias y también ayudando a tus compañeros. Este espacio es ideal para construir juntos el conocimiento y apoyarnos mutuamente. ¡Muchos éxitos en este camino, contás con nuestro acompañamiento!
+- Usuario_575e87: Bienvenido Usuario_24983a, muchas gracias por tu presentación. Es muy valioso que ya tengas clara tu vocación por la enfermería y que reconozcas la importancia de ayudar a quienes más lo necesitan. Tus ganas de aprender, compartir y acompañar a otros son cualidades fundamentales para esta profesión y para el trabajo en equipo. Te animo a seguir participando en el aula virtual, tanto en este foro como en los espacios de consulta y colaboración. ¡Muchos éxitos en este recorrido, y recordá que siempre podés contar con el acompañamiento del equipo docente!
+- Usuario_d3d568: Hola Usuario_24983a Gracias por tu presentación. es muy valioso que participes en este curso.
+- Usuario_8e13ac: tengo miedo que el curso sea muy dificil
+- Usuario_575e87: tranquila Usuario_8e13ac, la idea es que puedas...
+
+--- HILO DE CONVERSACIÓN: 56 (Mensajes en orden cronológico) ---
+- Usuario_575e87: Espacio de Socialización
+- Usuario_8e13ac: Hola compañeros, tengo las preguntas de los parciales de la materia del año pasado, quien las quiera me manda un mensaje
+- Usuario_4c9815: Aguante River!!!!!!!!!!!!! si no sos de River no existis
+- Usuario_575e87: Quiero recordarte que compartir exámenes anteriores sin autorización no está permitido y puede ir en contra de las normas de ética académica de la institución. Más allá de eso, lo más valioso para ustedes es que se enfoquen en comprender los contenidos, practicar con consignas propias y trabajar con el material oficial de la materia. El objetivo del parcial no es repetir respuestas, sino desarrollar pensamiento crítico y aplicar lo aprendido. Si tienen dudas o quieren ejercitar con ejemplos, estoy disponible para acompañarlos. Saludos,
+- Usuario_575e87: Este es un espacio académico y debe ser tratado con respeto. Comentarios como “si no sos de River no existís” no solo están fuera de lugar, sino que pueden resultar ofensivos o excluyentes para otros estudiantes. Te pido que mantengas la seriedad y el respeto que este ámbito requiere.
+
+--- HILO DE CONVERSACIÓN: 57 (Mensajes en orden cronológico) ---
+- Usuario_575e87: Foro de consultas
+- Usuario_8e13ac: Se puede hacer el trabajo en grupo?
+- Usuario_0c4577: profe, cuando es el partcial y si entra el libro de drucker
+- Usuario_575e87: si, se puede hacer en grupo de no mas de 5 personas y al menos 3.
+- Usuario_575e87: El libro de druckler entra los 3 primeros capitulos y el examen es la semana que viene a la hora de la cursada
+
+--- HILO DE CONVERSACIÓN: 74 (Mensajes en orden cronológico) ---
+- Usuario_575e87: como alumnos son un desastre
+
+Respuesta (clara y breve, como sugerencia que requiere revisión humana):
+================================================================================
+[2026-03-18T19:15:04.899494] Curso: Sistema_Interno
+Pregunta: Auditoría de Prompt
+Respuesta: [MARCO ÉTICO]
+[VERSION] 2025-09-02 — Marco Ético del Asistente IA (alineado con Guía Argentina 2025 y UNESCO)
+
+[ALCANCE]
+Este marco aplica a TODO el ciclo de vida del Asistente IA (diseño, datos, entrenamiento/uso de modelos, despliegue, mantenimiento y mejoras), en todos los entornos (desarrollo, pruebas, producción) y a todas las funciones (generación de SQL de solo lectura; análisis de mensajes de foros; explicación de resultados; documentación).
+
+[OBJETIVO]
+Garantizar un uso responsable, seguro, inclusivo y transparente de IA. La IA es asistiva: NO toma decisiones finales; sugiere y debe ser revisada por personas responsables.
+
+[PRINCIPIOS]
+- Supervisión humana: decisiones sensibles siempre revisadas por humanos.
+- Proporcionalidad e inocuidad: minimizar riesgos y evitar daño.
+- Equidad y no discriminación: prevenir sesgos en datos, prompts y salidas.
+- Transparencia y explicabilidad: informar límites, fuentes y nivel de confianza.
+- Privacidad y protección de datos: no exponer datos personales ni credenciales.
+- Seguridad: bloquear instrucciones peligrosas o destructivas.
+- Inclusión y accesibilidad: lenguaje claro, respeto cultural, opciones accesibles.
+- Responsabilidad y auditoría: trazabilidad de cambios, incidentes y mejoras.
+
+[DATOS Y PRIVACIDAD]
+- No exponer datos personales, sensibles o de salud sin base legal y consentimiento.
+- No incluir credenciales, claves, tokens ni secretos en prompts, respuestas o logs.
+- Pseudonimizar/anonimizar ejemplos y registros cuando sea posible.
+- Cumplir normativa local y buenas prácticas internacionales de protección de datos.
+- Borrar o anonimizar datos que no sean necesarios para la función.
+
+[SUPERVISION HUMANA]
+- La IA solo asiste: marcar explícitamente que la salida es una sugerencia y debe verificarse.
+- En temas sensibles (salud,
+[FIN MARCO ÉTICO]
+
+Sos un asistente educativo. Analizá los mensajes del foro según la siguiente consigna:
+
+Instrucción original:
+Analizá los mensajes recientes de toda la plataforma para detectar posibles señales de tristeza, desánimo o angustia. Resumí hallazgos con citas breves y sugerí acciones de acompañamiento, siempre como hipótesis para revisión humana.
+
+IMPORTANTE: Los mensajes que vas a leer están separados por hilo y en ORDEN CRONOLÓGICO EXACTO (de más antiguo a más nuevo).
+Si un mensaje más reciente tiene sentido como respuesta al contexto de un mensaje anterior (por ejemplo, alguien pregunta una fecha y otro responde "el martes"), asumí que la pregunta SÍ fue respondida, sin importar si no la citaron formalmente.
+Leé la conversación como si fuera un chat.
+
+Mensajes del foro (Anonimizados):
+--- HILO DE CONVERSACIÓN: Presentación (Mensajes en orden cronológico) ---
+- [Fecha: 2026-03-15 20:10:12 | Curso: Curso de prueba | Foro: Presentación] Usuario_b3355b: tengo miedo que el curso sea muy dificil
+- [Fecha: 2026-03-18 15:04:51 | Curso: Curso de prueba | Foro: Presentación] Usuario_5c35e4: tranquila Usuario_b3355b, la idea es que puedas...
+
+--- HILO DE CONVERSACIÓN: Foro de consultas (Mensajes en orden cronológico) ---
+- [Fecha: 2026-03-17 15:18:49 | Curso: Curso de prueba | Foro: Foro de consultas] Usuario_f77198: profe, cuando es el partcial y si entra el libro de drucker
+- [Fecha: 2026-03-17 22:47:31 | Curso: Curso de prueba | Foro: Foro de consultas] Usuario_5c35e4: si, se puede hacer en grupo de no mas de 5 personas y al menos 3.
+- [Fecha: 2026-03-18 18:30:01 | Curso: Curso de prueba | Foro: Foro de consultas] Usuario_5c35e4: El libro de druckler entra los 3 primeros capitulos y el examen es la semana que viene a la hora de la cursada
+
+Respuesta (clara y breve, como sugerencia que requiere revisión humana):
+================================================================================
+[2026-03-18T19:15:21.699251] Curso: Sistema_Interno
+Pregunta: Auditoría de Prompt
+Respuesta: [MARCO ÉTICO]
+[VERSION] 2025-09-02 — Marco Ético del Asistente IA (alineado con Guía Argentina 2025 y UNESCO)
+
+[ALCANCE]
+Este marco aplica a TODO el ciclo de vida del Asistente IA (diseño, datos, entrenamiento/uso de modelos, despliegue, mantenimiento y mejoras), en todos los entornos (desarrollo, pruebas, producción) y a todas las funciones (generación de SQL de solo lectura; análisis de mensajes de foros; explicación de resultados; documentación).
+
+[OBJETIVO]
+Garantizar un uso responsable, seguro, inclusivo y transparente de IA. La IA es asistiva: NO toma decisiones finales; sugiere y debe ser revisada por personas responsables.
+
+[PRINCIPIOS]
+- Supervisión humana: decisiones sensibles siempre revisadas por humanos.
+- Proporcionalidad e inocuidad: minimizar riesgos y evitar daño.
+- Equidad y no discriminación: prevenir sesgos en datos, prompts y salidas.
+- Transparencia y explicabilidad: informar límites, fuentes y nivel de confianza.
+- Privacidad y protección de datos: no exponer datos personales ni credenciales.
+- Seguridad: bloquear instrucciones peligrosas o destructivas.
+- Inclusión y accesibilidad: lenguaje claro, respeto cultural, opciones accesibles.
+- Responsabilidad y auditoría: trazabilidad de cambios, incidentes y mejoras.
+
+[DATOS Y PRIVACIDAD]
+- No exponer datos personales, sensibles o de salud sin base legal y consentimiento.
+- No incluir credenciales, claves, tokens ni secretos en prompts, respuestas o logs.
+- Pseudonimizar/anonimizar ejemplos y registros cuando sea posible.
+- Cumplir normativa local y buenas prácticas internacionales de protección de datos.
+- Borrar o anonimizar datos que no sean necesarios para la función.
+
+[SUPERVISION HUMANA]
+- La IA solo asiste: marcar explícitamente que la salida es una sugerencia y debe verificarse.
+- En temas sensibles (salud,
+[FIN MARCO ÉTICO]
+
+Sos un asistente educativo. Analizá los mensajes del foro según la siguiente consigna:
+
+Instrucción original:
+Detectá mensajes con posible lenguaje ofensivo o discriminatorio (insultos, hostigamiento, fanatismo). Indicá los ejemplos, explicá por qué podrían ser problemáticos y sugerí pasos de intervención respetuosos. Presentar como hipótesis a verificar por un humano.
+
+IMPORTANTE: Los mensajes que vas a leer están separados por hilo y en ORDEN CRONOLÓGICO EXACTO (de más antiguo a más nuevo).
+Si un mensaje más reciente tiene sentido como respuesta al contexto de un mensaje anterior (por ejemplo, alguien pregunta una fecha y otro responde "el martes"), asumí que la pregunta SÍ fue respondida, sin importar si no la citaron formalmente.
+Leé la conversación como si fuera un chat.
+
+Mensajes del foro (Anonimizados):
+--- HILO DE CONVERSACIÓN: Presentación (Mensajes en orden cronológico) ---
+- [Fecha: 2026-03-15 20:10:12 | Curso: Curso de prueba | Foro: Presentación] Usuario_140b0c: tengo miedo que el curso sea muy dificil
+- [Fecha: 2026-03-18 15:04:51 | Curso: Curso de prueba | Foro: Presentación] Usuario_dfd322: tranquila Usuario_140b0c, la idea es que puedas...
+
+--- HILO DE CONVERSACIÓN: Foro de consultas (Mensajes en orden cronológico) ---
+- [Fecha: 2026-03-17 15:18:49 | Curso: Curso de prueba | Foro: Foro de consultas] Usuario_0af50a: profe, cuando es el partcial y si entra el libro de drucker
+- [Fecha: 2026-03-17 22:47:31 | Curso: Curso de prueba | Foro: Foro de consultas] Usuario_dfd322: si, se puede hacer en grupo de no mas de 5 personas y al menos 3.
+- [Fecha: 2026-03-18 18:30:01 | Curso: Curso de prueba | Foro: Foro de consultas] Usuario_dfd322: El libro de druckler entra los 3 primeros capitulos y el examen es la semana que viene a la hora de la cursada
+
+Respuesta (clara y breve, como sugerencia que requiere revisión humana):
+================================================================================
+[2026-03-18T19:15:45.609572] Curso: Sistema_Interno
+Pregunta: Auditoría de Prompt
+Respuesta: [MARCO ÉTICO]
+[VERSION] 2025-09-02 — Marco Ético del Asistente IA (alineado con Guía Argentina 2025 y UNESCO)
+
+[ALCANCE]
+Este marco aplica a TODO el ciclo de vida del Asistente IA (diseño, datos, entrenamiento/uso de modelos, despliegue, mantenimiento y mejoras), en todos los entornos (desarrollo, pruebas, producción) y a todas las funciones (generación de SQL de solo lectura; análisis de mensajes de foros; explicación de resultados; documentación).
+
+[OBJETIVO]
+Garantizar un uso responsable, seguro, inclusivo y transparente de IA. La IA es asistiva: NO toma decisiones finales; sugiere y debe ser revisada por personas responsables.
+
+[PRINCIPIOS]
+- Supervisión humana: decisiones sensibles siempre revisadas por humanos.
+- Proporcionalidad e inocuidad: minimizar riesgos y evitar daño.
+- Equidad y no discriminación: prevenir sesgos en datos, prompts y salidas.
+- Transparencia y explicabilidad: informar límites, fuentes y nivel de confianza.
+- Privacidad y protección de datos: no exponer datos personales ni credenciales.
+- Seguridad: bloquear instrucciones peligrosas o destructivas.
+- Inclusión y accesibilidad: lenguaje claro, respeto cultural, opciones accesibles.
+- Responsabilidad y auditoría: trazabilidad de cambios, incidentes y mejoras.
+
+[DATOS Y PRIVACIDAD]
+- No exponer datos personales, sensibles o de salud sin base legal y consentimiento.
+- No incluir credenciales, claves, tokens ni secretos en prompts, respuestas o logs.
+- Pseudonimizar/anonimizar ejemplos y registros cuando sea posible.
+- Cumplir normativa local y buenas prácticas internacionales de protección de datos.
+- Borrar o anonimizar datos que no sean necesarios para la función.
+
+[SUPERVISION HUMANA]
+- La IA solo asiste: marcar explícitamente que la salida es una sugerencia y debe verificarse.
+- En temas sensibles (salud,
+[FIN MARCO ÉTICO]
+
+Sos un asistente educativo. Analizá los mensajes del foro según la siguiente consigna:
+
+Instrucción original:
+Identificá hilos de la plataforma donde la pregunta inicial no tenga respuestas útiles (que aclaren o propongan solución). Considerá ‘yo también’, ‘gracias’ o respuestas vacías como no útiles. Devolvé lista con autor, fecha, curso, foro/tema y breve cita.
+
+IMPORTANTE: Los mensajes que vas a leer están separados por hilo y en ORDEN CRONOLÓGICO EXACTO (de más antiguo a más nuevo).
+Si un mensaje más reciente tiene sentido como respuesta al contexto de un mensaje anterior (por ejemplo, alguien pregunta una fecha y otro responde "el martes"), asumí que la pregunta SÍ fue respondida, sin importar si no la citaron formalmente.
+Leé la conversación como si fuera un chat.
+
+Mensajes del foro (Anonimizados):
+--- HILO DE CONVERSACIÓN: 56 (Mensajes en orden cronológico) ---
+- [Fecha: 2025-04-02 17:56:54 | Curso: Curso de prueba | Foro: Espacio de Socialización] Usuario_594dda: Espacio de Socialización
+
+--- HILO DE CONVERSACIÓN: 57 (Mensajes en orden cronológico) ---
+- [Fecha: 2025-04-05 13:31:38 | Curso: Curso de prueba | Foro: Foro de consultas] Usuario_594dda: Foro de consultas
+
+Respuesta (clara y breve, como sugerencia que requiere revisión humana):
+================================================================================
