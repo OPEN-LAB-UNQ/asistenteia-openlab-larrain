@@ -1,7 +1,7 @@
 ASISTENTE IA - OPEN LAB UNQ & HOSPITAL LARRAÍN
 ===============================================================================
 
-Este proyecto es una iniciativa conjunta de OPEN LAB - Universidad Nacional de Quilmes y el Hospital Mario Larraín de Berisso. Se trata de un asistente inteligente construido con Flask y Gunicorn, orientado a mejorar la gestión y el acceso a la información en entornos educativos y de salud, con un fuerte enfoque en ética, transparencia y privacidad.
+Este proyecto es una iniciativa conjunta de OPEN LAB - Universidad Nacional de Quilmes y el Hospital Mario Larraín de Berisso. Se trata de un asistente inteligente construido con Flask y Gunicorn, orientado a mejorar la gestión y el acceso a la información en entornos educativos y de salud, con un fuerte enfoque en ética, transparencia y privacidad. 
 
 ===============================================================================
 ÍNDICE
