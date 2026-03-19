@@ -1,6 +1,8 @@
 import os
 import json
 import re
+import uuid
+import unicodedata
 import mysql.connector
 from mysql.connector import pooling
 from flask import Blueprint, request, jsonify, render_template
@@ -19,7 +21,7 @@ import traceback
 load_dotenv(dotenv_path="/home/asistenteia/.env")
 
 # 🔒 Clave de acceso
-ACCESS_KEY = os.getenv("ACCESS_KEY", "XXXX")
+ACCESS_KEY = os.getenv("ACCESS_KEY", "2817")
 
 def check_access():
     """Valida la clave enviada en el header x-pass"""
@@ -111,7 +113,7 @@ def log_to_file(pregunta, respuesta, curso):
             f.write(f"Respuesta: {respuesta}\n")
             f.write("=" * 80 + "\n")
     except Exception as e:
-        print(f"⚠️ Error al escribir log: {e}")
+        pass
 
 # === Serialización de resultados ===
 def serializar_resultado(data):
@@ -165,10 +167,9 @@ def _prepare_sql_and_params(sql_raw: str, curso: str, page: int, size: int):
     return sql, params, has_limit
 
 # === Rutas ===
-# === Ruta /procesar ===
 @foro_bp.route("/procesar", methods=["POST"])
 def procesar():
-    if not check_access():   # 🔒 validación de clave antes de todo
+    if not check_access():   
         return jsonify({"error": "🔒 Acceso denegado"}), 403
 
     try:
@@ -177,37 +178,29 @@ def procesar():
         curso = data.get("curso", "").strip()
         libre = bool(data.get("libre", False))
         guardar = bool(data.get("guardar", False))
-        consent_ia = bool(data.get("consentIA", False))   # 👈 por defecto False
+        consent_ia = bool(data.get("consentIA", False))   
 
-        # Paginación
         page = int(data.get("page", 1))
         size = int(data.get("size", 200))
         if page < 1:
             page = 1
         size = max(1, min(size, 1000))
 
-        print(f"📥 Pregunta recibida: {pregunta} | curso={curso} | libre={libre} | guardar={guardar} | consentIA={consent_ia}")
-
-        # 1) Cargar preguntas
         preguntas_json = cargar_preguntas()
 
-        # 🔎 Detectar si es consulta general o por curso
         if "__CURSO__" in pregunta or curso:
             todas = preguntas_json.get("por_curso", []) + preguntas_json.get("por_curso_ia", [])
         else:
             todas = preguntas_json.get("generales", []) + preguntas_json.get("generales_ia", [])
 
-        # 2) Buscar match literal
         match = None
         ruta = "json_coincidencia"
         if not libre:
             match = encontrar_pregunta_similar(pregunta, todas)
 
-        # 3) Si no hay match → usar esquema semántico
         if not match:
             candidatos = buscar_semantico(pregunta, todas, top_k=5)
 
-            # ⚖️ Solo reordena con IA si hay consentimiento
             if consent_ia:
                 top = rerank_con_ia(pregunta, candidatos)
             else:
@@ -241,34 +234,30 @@ def procesar():
                     "message": "⚠️ No se encontró una consulta predefinida ni sugerencias semánticas."
                 }), 400
 
-        # 4) Preparar SQL
         sql_prepared, params, had_limit = _prepare_sql_and_params(
             match["sql"], curso, page, size
         )
 
-        # 5) Verificar seguridad
         if not es_solo_lectura(sql_prepared):
             return jsonify({
                 "status": "error",
                 "message": "⚠️ Solo se permiten consultas de lectura (SELECT/WITH)."
             }), 400
 
-        # 6) Ejecutar
         with get_conn() as conn, conn.cursor(dictionary=True) as cursor:
             cursor.execute(sql_prepared, params or None)
             resultados = cursor.fetchall()
 
-        # 7) Si la pregunta requiere IA
         if match.get("descripcion"):
             if not consent_ia:
-                # ❌ No hay consentimiento → no responder nada
                 return jsonify({
                     "status": "error",
                     "message": "⚠️ Esta consulta requiere análisis IA, pero no diste tu consentimiento."
                 }), 403
 
             descripcion = match["descripcion"]
-            respuesta_ia = procesar_pregunta_ia(descripcion, resultados)
+            # 🚀 LE PASAMOS LA CONSULTA SQL PARA QUE DETERMINE EL ORDEN CRONOLÓGICO
+            respuesta_ia = procesar_pregunta_ia(descripcion, resultados, sql_prepared)
 
             if guardar:
                 log_to_file(pregunta, str(respuesta_ia), curso)
@@ -287,7 +276,6 @@ def procesar():
                 "has_more": (len(resultados) == size) and (not had_limit)
             })
 
-        # 8) Caso normal (sin IA)
         data_final = serializar_resultado(resultados)
 
         if guardar:
@@ -312,16 +300,163 @@ def procesar():
         return jsonify({"status": "error", "message": f"Error: {str(e)}"}), 500
 
 
-
-# === Procesar IA ===
-def procesar_pregunta_ia(descripcion, mensajes):
+# === Procesar IA (MOTOR ENTERPRISE CON CRONOLOGÍA DINÁMICA) ===
+def procesar_pregunta_ia(descripcion, mensajes, query_sql=""):
     if not mensajes:
         return "⚠️ No se encontraron mensajes para analizar en este curso."
+        
+    hilos = {}
+    mapa_reemplazos = {}  
+    mapa_inverso = {}     
+    autores_procesados = set()
 
-    joined = "\n\n".join([
-        f"{m.get('firstname','')} {m.get('lastname','')}: {m.get('message','')}"
-        for m in mensajes if m.get('message')
-    ])
+    # ALIASES GLOBALES DE APOYO
+    ALIASES_BASE = {
+        "matias": ["mati"],
+        "matías": ["mati"],
+        "camila": ["cami"],
+        "profesor": ["profe", "prof"],
+        "profesora": ["profe", "prof"]
+    }
+
+    # 1. ORDEN CRONOLÓGICO DINÁMICO
+    if "DESC" in query_sql.upper():
+        mensajes_cronologicos = list(reversed(mensajes))
+    else:
+        mensajes_cronologicos = list(mensajes)
+
+    # Helpers de Normalización
+    def sin_acentos(texto):
+        return ''.join(c for c in unicodedata.normalize('NFD', texto) if unicodedata.category(c) != 'Mn')
+
+    def generar_variantes(texto):
+        if not texto: return []
+        partes = [texto] + texto.split()
+        variantes = set()
+        
+        # Mapa simple para adivinar posibles tildes faltantes o extras
+        tildes_map = {'a': 'á', 'e': 'é', 'i': 'í', 'o': 'ó', 'u': 'ú'}
+        tildes_inv = {'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u'}
+        
+        for p in partes:
+            p = p.strip()
+            if len(p) > 2:
+                variantes.add(p)
+                variantes.add(sin_acentos(p))
+                variantes.add(p.lower())
+                variantes.add(sin_acentos(p).lower())
+                
+                # Agregar variantes forzando tildes por si faltan
+                p_lower = p.lower()
+                for sin_t, con_t in tildes_map.items():
+                    if sin_t in p_lower:
+                        variantes.add(p_lower.replace(sin_t, con_t))
+                
+                # Agregar variantes sacando tildes por si sobran
+                for con_t, sin_t in tildes_inv.items():
+                    if con_t in p_lower:
+                        variantes.add(p_lower.replace(con_t, sin_t))
+                        
+        return list(variantes)
+        
+    def desanonimizar_respuesta(texto, mapa_inverso_local):
+        resultado = texto
+        for pseudo, real in mapa_inverso_local.items():
+            patron = r'\b' + re.escape(pseudo) + r'\b'
+            resultado = re.sub(patron, real, resultado)
+        return resultado
+        
+    def detectar_fuga(texto, variantes_conocidas):
+        texto_norm = sin_acentos(texto.lower())
+        for variante in variantes_conocidas:
+            if len(variante) > 3 and sin_acentos(variante.lower()) in texto_norm:
+                return variante
+        return None
+
+    # 2. GENERAR MAPA DE USUARIOS CON UUID Y VARIANTES DINÁMICAS
+    todas_las_variantes_generadas = set()
+    for m in mensajes_cronologicos:
+        firstname = m.get('firstname', '').strip()
+        lastname = m.get('lastname', '').strip()
+        autor_real = f"{firstname} {lastname}".strip()
+        
+        if autor_real and autor_real not in autores_procesados:
+            pseudonimo = f"Usuario_{str(uuid.uuid4())[:6]}"
+            autores_procesados.add(autor_real)
+            
+            variantes_usuario = generar_variantes(firstname) + generar_variantes(lastname) + generar_variantes(autor_real)
+            
+            fname_lower = sin_acentos(firstname.lower())
+            if fname_lower in ALIASES_BASE:
+                variantes_usuario.extend(ALIASES_BASE[fname_lower])
+            
+            for v in set(variantes_usuario):
+                if v and v not in mapa_reemplazos:
+                    mapa_reemplazos[v] = pseudonimo
+                    todas_las_variantes_generadas.add(v)
+                    
+            mapa_inverso[pseudonimo] = autor_real
+
+    claves_ordenadas = sorted(mapa_reemplazos.keys(), key=len, reverse=True)
+
+    # 3. CONSTRUIR HILOS, LIMPIEZA HTML Y REEMPLAZO ROBUSTO
+    for m in mensajes_cronologicos:
+        if not m.get('message'):
+            continue
+            
+        hilo_id = m.get('discusion_id') or m.get('tema') or 'General'
+        if hilo_id not in hilos:
+            hilos[hilo_id] = []
+        
+        autor_real = f"{m.get('firstname', '')} {m.get('lastname', '')}".strip()
+        
+        pseudonimo = None
+        for variante in generar_variantes(autor_real):
+            if variante in mapa_reemplazos:
+                pseudonimo = mapa_reemplazos[variante]
+                break
+
+        if not pseudonimo:
+            pseudonimo = "Usuario_Desconocido"
+            
+        texto_crudo = m.get('message', '').strip()
+        
+        # PASO 1 — LIMPIAR SÓLO HTML Y ESPACIOS MÚLTIPLES (Preservamos puntuación)
+        texto = re.sub(r'<[^>]+>', ' ', texto_crudo)
+        texto = re.sub(r'\s+', ' ', texto).strip()
+        
+        # PASO 2 — REEMPLAZO DESCENDENTE SEGURO
+        for nombre_real in claves_ordenadas:
+            pseudo = mapa_reemplazos[nombre_real]
+            patron = r'(?i)(?<!\w)' + re.escape(nombre_real) + r'(?!\w)'
+            texto = re.sub(patron, pseudo, texto)
+
+        # ✨ ACÁ INYECTAMOS LOS DATOS FALTANTES PARA LA IA
+        fecha_msg = m.get('fecha', '')
+        curso_msg = m.get('curso', '')
+        foro_msg = m.get('foro', '')
+        
+        # Armamos un bloque con la info que tengamos disponible
+        meta_info = []
+        if fecha_msg: meta_info.append(f"Fecha: {fecha_msg}")
+        if curso_msg: meta_info.append(f"Curso: {curso_msg}")
+        if foro_msg: meta_info.append(f"Foro: {foro_msg}")
+        
+        meta_str = f" [{ ' | '.join(meta_info) }]" if meta_info else ""
+        
+        hilos[hilo_id].append(f"-{meta_str} {pseudonimo}: {texto}")
+        
+    textos_hilos = []
+    for hilo_id, msjs in hilos.items():
+        textos_hilos.append(f"--- HILO DE CONVERSACIÓN: {hilo_id} (Mensajes en orden cronológico) ---\n" + "\n".join(msjs))
+        
+    joined = "\n\n".join(textos_hilos)
+
+    # 4. AUDITORÍA FINAL PARA GARANTIZAR QUE NO VIAJEN NOMBRES
+    fuga = detectar_fuga(joined, todas_las_variantes_generadas)
+    if fuga:
+        print(f"\n🚨 [ALERTA DE PRIVACIDAD] POSIBLE FUGA DETECTADA ANTES DE IA: Rastro de '{fuga}'\n")
+    
     marco = _cargar_marco_etico()
 
     prompt = f"""
@@ -331,15 +466,31 @@ def procesar_pregunta_ia(descripcion, mensajes):
 
 Sos un asistente educativo. Analizá los mensajes del foro según la siguiente consigna:
 
-Instrucción:
+Instrucción original:
 {descripcion}
 
-Mensajes:
+IMPORTANTE: Los mensajes que vas a leer están separados por hilo y en ORDEN CRONOLÓGICO EXACTO (de más antiguo a más nuevo).
+Si un mensaje más reciente tiene sentido como respuesta al contexto de un mensaje anterior (por ejemplo, alguien pregunta una fecha y otro responde "el martes"), asumí que la pregunta SÍ fue respondida, sin importar si no la citaron formalmente.
+Leé la conversación como si fuera un chat.
+
+Mensajes del foro (Anonimizados):
 {joined}
 
 Respuesta (clara y breve, como sugerencia que requiere revisión humana):
 """.strip()
 
+    # === ÚNICO PRINT LIMPIO PARA AUDITORÍA VISUAL ===
+    print("\n" + "▼" * 60)
+    print("👀 LO QUE VE LA IA (TEXTO EXACTO ENVIADO A OPENAI):")
+    print("-" * 60)
+    print(prompt)
+    print("-" * 60)
+    print("🏁 FIN DEL TEXTO ENVIADO A OPENAI")
+    print("▲" * 60 + "\n")
+    
+    log_to_file("Auditoría de Prompt", prompt, "Sistema_Interno")
+
+    # 5. ENVIAR A IA Y RECIBIR
     try:
         response = openai_client.chat.completions.create(
             model="gpt-4o-mini",
@@ -348,23 +499,28 @@ Respuesta (clara y breve, como sugerencia que requiere revisión humana):
             temperature=0.3
         )
         contenido = response.choices[0].message.content
-        return contenido.strip() if contenido and contenido.strip() else "🤖 La IA no encontró evidencia relevante."
+        
+        if not contenido or not contenido.strip():
+            return "🤖 La IA no encontró evidencia relevante."
+            
+        # 6. DESANONIMIZAR CON REGEX SEGURO Y DEVOLVER
+        respuesta_final = contenido.strip()
+        respuesta_final = desanonimizar_respuesta(respuesta_final, mapa_inverso)
+        return respuesta_final
+
     except Exception as e:
         return f"⚠️ Error al usar IA: {str(e)}"
 
-
-# === Rutas básicas ===
+# === Resto del archivo ===
 @foro_bp.route("/")
 def index():
     return render_template("foro_chat.html")
 
-
 @foro_bp.route("/faq")
 def faq():
-    if not check_access():   # 🔒 validación de clave
+    if not check_access():   
         return jsonify({"error": "🔒 Acceso denegado"}), 403
     try:
-        # Cargar SOLO desde sql_base.json (no ejemplos)
         with open("sql_base.json", "r", encoding="utf-8") as f:
             base = json.load(f)
 
@@ -375,13 +531,11 @@ def faq():
             "por_curso_ia": [p.get("pregunta", "") for p in base.get("por_curso_ia", [])]
         })
     except Exception as e:
-        print(f"⚠️ Error en /faq: {e}")
         return jsonify({"error": str(e)}), 500
 
-# === Ruta /chat ===
 @foro_bp.route("/chat", methods=["POST"])
 def chat():
-    if not check_access():   # 🔒 validación de clave
+    if not check_access():   
         return jsonify({"error": "🔒 Acceso denegado"}), 403
     try:
         data = request.get_json() or {}
@@ -391,15 +545,14 @@ def chat():
         curso = data.get("curso", "").strip()
         page = int(data.get("page", 1))
         size = int(data.get("size", 100))
+        
         if page < 1: 
             page = 1
         size = max(1, min(size, 1000))
 
-        # 🚩 Consentimiento IA y guardado
         consent_ia = bool(data.get("consentIA", True))
         guardar = bool(data.get("guardar", False))
 
-        # ✅ Caso 1: selección explícita de sugerencia
         if seleccion is not None and sugerencias:
             idx = int(seleccion) - 1
             if idx < 0 or idx >= len(sugerencias):
@@ -419,10 +572,11 @@ def chat():
                 cursor.execute(sql_prepared, params or None)
                 resultados = cursor.fetchall()
 
-            # 🔎 IA solo si hay descripción y consentimiento
             if elegido.get("descripcion") and consent_ia:
                 descripcion = elegido["descripcion"]
-                respuesta_ia = procesar_pregunta_ia(descripcion, resultados)
+                # 🚀 LE PASAMOS LA CONSULTA SQL PARA QUE DETERMINE EL ORDEN CRONOLÓGICO
+                respuesta_ia = procesar_pregunta_ia(descripcion, resultados, sql_prepared)
+                
                 if guardar:
                     log_to_file(f"Selección {seleccion}", f"SQL (IA): {sql_prepared}", curso)
 
@@ -438,7 +592,6 @@ def chat():
                     "has_more": (len(resultados) == size) and (not had_limit)
                 })
 
-            # 🟢 Caso normal
             data_final = serializar_resultado(resultados)
             if guardar:
                 log_to_file(f"Selección {seleccion}", f"SQL: {sql_prepared}", curso)
@@ -455,26 +608,22 @@ def chat():
                 "has_more": (len(resultados) == size) and (not had_limit)
             })
 
-        # ✅ Caso 2: texto libre → buscar coincidencias
         preguntas_json = cargar_preguntas()
         if "__CURSO__" in mensaje or curso:
             todas = preguntas_json.get("por_curso", []) + preguntas_json.get("por_curso_ia", [])
         else:
             todas = preguntas_json.get("generales", []) + preguntas_json.get("generales_ia", [])
 
-        # Paso 1: coincidencia literal
         match = encontrar_pregunta_similar(mensaje, todas)
         if match:
             return jsonify({"status": "sugerencias", "sugerencias": [match]})
 
-        # Paso 2: embeddings
         top_candidatos = buscar_semantico(mensaje, todas, top_k=5)
 
-        # Paso 3: rerank con IA (si hay consentimiento)
         if consent_ia and top_candidatos:
             top = rerank_con_ia(mensaje, top_candidatos)
         else:
-            top = top_candidatos[:3]  # fallback simple sin IA
+            top = top_candidatos[:3]  
 
         return jsonify({
             "status": "sugerencias",
@@ -493,52 +642,28 @@ def chat():
         print(f"❌ Error en /foro/chat: {e}")
         return jsonify({"status": "error", "message": str(e)}), 500
 
-
-
-# === Similitud semántica con embeddings ===
-# === Similitud semántica con embeddings + IA ===
 def buscar_semantico(mensaje, preguntas, top_k=10):
-    """
-    Busca coincidencias con embeddings y luego aplica IA
-    para priorizar el sentido profundo.
-    """
     if not preguntas or not mensaje:
         return []
 
-    # Prepara el corpus de preguntas
     corpus = [p.get("pregunta", "") for p in preguntas if p.get("pregunta")]
     if not corpus:
         return []
 
     try:
-        # Embeddings iniciales para acotar candidatos
         emb_corpus = modelo_embed.encode(corpus, convert_to_tensor=True)
         emb_msj = modelo_embed.encode(mensaje, convert_to_tensor=True)
         cos_scores = util.cos_sim(emb_msj, emb_corpus)[0]
 
-        # Selecciona top_k candidatos más cercanos
         top_idx = cos_scores.topk(min(top_k, len(corpus))).indices.tolist()
         candidatos = [preguntas[i] for i in top_idx]
 
-        # Reordenamiento conceptual con IA
         return rerank_con_ia(mensaje, candidatos)
 
     except Exception as e:
-        print(f"⚠️ Error en embeddings: {e}")
         return []
 
-
-
-# === Preguntas ===
 def cargar_preguntas():
-    """
-    Carga y combina preguntas desde sql_base.json y sql_ejemplos.json.
-    Devuelve siempre un diccionario con las 4 claves esperadas:
-    - generales
-    - por_curso
-    - generales_ia
-    - por_curso_ia
-    """
     base_path = os.path.dirname(__file__)
     archivos = [
         os.path.join(base_path, "sql_base.json"),
@@ -562,19 +687,13 @@ def cargar_preguntas():
                             if clave in data and isinstance(data[clave], list):
                                 preguntas[clave].extend(data[clave])
             except json.JSONDecodeError:
-                print(f"⚠️ Error: {archivo} no es un JSON válido")
+                pass
             except Exception as e:
-                print(f"⚠️ Error cargando {archivo}: {e}")
+                pass
 
     return preguntas
 
-
-# === Coincidencia literal con RapidFuzz ===
 def encontrar_pregunta_similar(pregunta_usuario, preguntas_posibles, umbral=85):
-    """
-    Busca coincidencia literal aproximada usando RapidFuzz.
-    Devuelve la pregunta si supera el umbral, o None si no hay match.
-    """
     if not preguntas_posibles or not pregunta_usuario:
         return None
     try:
@@ -584,7 +703,6 @@ def encontrar_pregunta_similar(pregunta_usuario, preguntas_posibles, umbral=85):
             scorer=fuzz.token_sort_ratio
         )
     except Exception as e:
-        print(f"⚠️ Error en RapidFuzz: {e}")
         return None
 
     if mejores and mejores[1] >= umbral:
@@ -593,13 +711,7 @@ def encontrar_pregunta_similar(pregunta_usuario, preguntas_posibles, umbral=85):
                 return p
     return None
 
-
-# === Coincidencia semántica con IA (mejorada) ===
 def rerank_con_ia(pregunta_usuario, candidatas):
-    """
-    Usa IA (gpt-4o-mini) para analizar el sentido profundo
-    y devolver las opciones más cercanas en intención/semántica.
-    """
     if not candidatas or not pregunta_usuario:
         return []
 
@@ -643,6 +755,4 @@ Instrucciones para vos (IA):
         return [candidatas[i] for i in idxs if 0 <= i < len(candidatas)]
 
     except Exception as e:
-        print("⚠️ Error en rerank con IA:", e)
-        # fallback → devolvemos los 3 primeros candidatos
         return candidatas[:3]
