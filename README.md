@@ -1,28 +1,35 @@
 # ASISTENTE IA - OPEN LAB UNQ & HOSPITAL LARRAÍN
 
+## Descripción
+
 Este proyecto es una iniciativa conjunta de OPEN LAB - Universidad Nacional de Quilmes y el Hospital Mario Larraín de Berisso.
 
 Se trata de un asistente inteligente construido con Flask y Gunicorn, orientado a mejorar la gestión y el acceso a la información en entornos educativos y de salud, con un fuerte enfoque en ética, transparencia y privacidad.
 
 ---
 
-## INDICE
+## Índice
 
-1. Acceso Rápido  
-2. Características Principales  
-3. Tecnologías Utilizadas  
-4. Requisitos del Sistema  
-5. Estructura de Archivos  
-6. Instalación Paso a Paso  
-7. Ejecución  
-8. Marco Ético  
-9. Contacto y Versión  
+1. Acceso rápido  
+2. Características principales  
+3. Arquitectura del sistema  
+4. Tecnologías utilizadas  
+5. Requisitos del sistema  
+6. Estructura del proyecto  
+7. Instalación  
+8. Ejecución  
+9. Uso de la API  
+10. Motor de inteligencia artificial  
+11. Seguridad  
+12. Anonimización de datos  
+13. Marco ético  
+14. Licencia y contacto  
 
 ---
 
-## 1. ACCESO RAPIDO
+## 1. Acceso rápido
 
-Sitio Web:  
+Sitio web:  
 https://asistenteia.entornodepruebas.com.ar/foro/
 
 Clave de acceso:  
@@ -30,166 +37,218 @@ Clave de acceso:
 
 ---
 
-## 2. CARACTERISTICAS PRINCIPALES
+## 2. Características principales
 
-### Marco Ético Integrado
-- Alineado con la Guía Argentina de IA Responsable (2025)  
-- Basado en recomendaciones de UNESCO  
-
-### Seguridad Robusta
-- Solo consultas SELECT en SQL  
-- Protección contra inyección SQL  
-- Bloqueo de prompt injection  
-- Autenticación por clave  
-- Pool de conexiones a la base de datos  
-
-### Funcionalidades Inteligentes
-- Preguntas predefinidas por categoría  
-- Modo libre para consultas personalizadas  
-- Sugerencias automáticas  
-- Análisis de sentimiento en foros  
-- Detección de lenguaje ofensivo  
-- Identificación de preguntas sin respuesta  
-
-### Arquitectura Profesional
-- Diseño modular con Flask Blueprints  
-- Cache con TTL para consultas frecuentes  
-- Preparado para alta concurrencia  
-- Logs y trazabilidad  
+- Consultas en lenguaje natural sobre datos académicos  
+- Ejecución automática de consultas SQL seguras  
+- Sugerencias inteligentes basadas en similitud semántica  
+- Análisis de contenido de foros mediante IA  
+- Detección de patrones (emocionales, participación, etc.)  
+- Sistema modular escalable  
 
 ---
 
-## 3. TECNOLOGIAS UTILIZADAS
+## 3. Arquitectura del sistema
 
-- Python 3.9+, Flask, Gunicorn  
-- Nginx, Certbot / Let's Encrypt  
-- MySQL  
-- OpenAI API  
-- Sentence Transformers  
-- HTML, CSS, JavaScript  
+El sistema está basado en una arquitectura web modular:
+
+- Backend en Flask con Blueprints:
+  - `/foro` → procesamiento de preguntas
+  - `/curso` → listado de cursos
+- Base de datos MySQL
+- Motor de IA híbrido (reglas + embeddings + OpenAI)
+- Frontend en HTML + JavaScript
+
+### Flujo de procesamiento
+
+1. El usuario realiza una pregunta
+2. Se busca coincidencia en base predefinida
+3. Se aplica búsqueda semántica si no hay match exacto
+4. Se genera y valida la consulta SQL
+5. Se ejecuta en la base de datos
+6. Opcionalmente se analiza el resultado con IA
+7. Se devuelve respuesta estructurada
 
 ---
 
-## 4. REQUISITOS DEL SISTEMA
+## 4. Tecnologías utilizadas
 
-- Servidor Linux (CentOS / RHEL / Fedora recomendado)  
-- Acceso root o sudo  
+- Python 3.9+
+- Flask
+- Gunicorn
+- Nginx
+- Certbot (SSL)
+- MySQL
+- OpenAI API
+- Sentence Transformers
+- HTML / CSS / JavaScript
+
+---
+
+## 5. Requisitos del sistema
+
+- Servidor Linux
+- Acceso root o sudo
 - Puertos abiertos:
   - 3306 (MySQL)
-  - 5000 (App)  
-- Conexión a internet  
+  - 5000 (App)
+- Conexión a internet
 
 ---
 
-## 5. ESTRUCTURA DE ARCHIVOS
+## 6. Estructura del proyecto
 
 ```
-.env
-app.py
-foro.py
-curso.py
-Extractor.py
-sql_base.json
-sql_ejemplos.json
-foro_chat.js
-state.js
-ui.js
-foro_chat.html
+asistenteia/
+├── static/
+│   ├── app.js
+│   ├── ui.js
+│   ├── state.js
+│   ├── foro_chat.css
+├── templates/
+│   └── foro_chat.html
+├── app.py
+├── foro.py
+├── curso.py
+├── extractor.py
+├── sql_base.json
+├── sql_ejemplos.json
+├── MARCO_ETICO.txt
+├── LICENSE
 ```
 
 ---
 
-## 6. INSTALACION PASO A PASO
+## 7. Instalación
 
-### Paso 1: Crear Directorio
+### Crear directorio
 
 ```bash
 mkdir -p /home/asistenteia
 cd /home/asistenteia
 ```
 
-(Subir archivos por FTP)
-
----
-
-### Paso 2: Configurar .env
+### Configurar variables de entorno
 
 ```env
 OPENAI_API_KEY=TU_API_KEY
-DB_HOST=vps-5380511-x.dattaweb.com
-DB_USER=muqfnoyr_mood705
-DB_PASSWORD=TU_PASSWORD
-DB_NAME=muqfnoyr_mood705
-DB_PREFIX=mvlkl_
+DB_HOST=host
+DB_USER=user
+DB_PASSWORD=password
+DB_NAME=database
+DB_PREFIX=prefix_
 ACCESS_KEY=2817
 ```
 
----
-
-### Paso 3: Instalar Python
+### Instalar dependencias
 
 ```bash
-yum install -y python3 python3-pip
-pip3 install --upgrade pip
+pip install Flask gunicorn mysql-connector-python openai sentence-transformers torch python-dotenv rapidfuzz cachetools
 ```
 
 ---
 
-### Paso 4: Instalar Dependencias
+## 8. Ejecución
+
+Modo desarrollo:
 
 ```bash
-pip3 install Flask==3.1.1 gunicorn==23.0.0 mysql-connector-python==9.3.0 openai==1.97.0 sentence-transformers==3.4.0 torch==2.7.1 python-dotenv==1.1.1 rapidfuzz==3.13.0 cachetools==6.1.0 markdown2==2.5.4 numpy==2.0.2 transformers==4.53.2 scikit-learn==1.6.1 huggingface-hub==0.33.4 safetensors==0.5.3 tqdm==4.67.1 requests==2.31.0 urllib3==2.3.0
-```
-
----
-
-### Paso 5: Configurar Firewall
-
-```bash
-firewall-cmd --zone=public --add-port=5000/tcp --permanent
-firewall-cmd --zone=public --add-port=3306/tcp --permanent
-firewall-cmd --reload
-```
-
----
-
-## 7. EJECUCION
-
-```bash
-cd /home/asistenteia
 python app.py
 ```
 
-Disponible en:  
-http://tu-ip:5000/foro/
+Producción:
+
+```bash
+gunicorn -w 3 -b 127.0.0.1:8000 app:app
+```
 
 ---
 
-## 8. MARCO ETICO
+## 9. Uso de la API
 
-Alineado con:
-- Guía Argentina de IA Responsable (2025)  
+Ejemplo de consulta:
+
+```bash
+curl -X POST http://localhost:8000/foro/procesar \
+  -H "Content-Type: application/json" \
+  -H "x-pass: 2817" \
+  -d '{"pregunta": "¿Cuántos estudiantes hay?", "curso": "Matemática"}'
+```
+
+---
+
+## 10. Motor de inteligencia artificial
+
+El sistema combina múltiples estrategias:
+
+- Búsqueda por similitud semántica (Sentence Transformers)
+- Reranking con modelos de lenguaje
+- Generación de análisis contextual con OpenAI
+
+Permite:
+
+- Interpretar preguntas abiertas
+- Analizar mensajes de foros
+- Detectar patrones y tendencias
+
+---
+
+## 11. Seguridad
+
+- Solo se permiten consultas SQL de lectura (SELECT / WITH)
+- Validación estricta contra inyección SQL
+- Protección contra prompt injection
+- Autenticación mediante clave de acceso
+- Control de acceso a endpoints
+
+---
+
+## 12. Anonimización de datos
+
+El sistema implementa anonimización previa al uso de inteligencia artificial.
+
+Antes de enviar datos a modelos:
+
+- Se reemplazan nombres por identificadores anónimos
+- Se normalizan variantes lingüísticas
+- Se preserva el contexto del diálogo
+
+Además:
+
+- No se envían datos sensibles
+- Se minimiza la información procesada
+- Se respeta la privacidad de los usuarios
+
+Esto permite realizar análisis avanzados sin comprometer la identidad de las personas.
+
+---
+
+## 13. Marco ético
+
+El sistema se alinea con:
+
+- Guía Argentina de IA Responsable (2025)
 - UNESCO (2021)
 
-### Principios
-- Supervisión humana  
-- Equidad  
-- Transparencia  
-- Privacidad  
-- Seguridad  
-- Responsabilidad  
+Principios:
 
-### Prohibiciones
-- Exponer datos sensibles  
-- Automatizar decisiones sin control humano  
-- Inventar datos o diagnósticos  
+- Supervisión humana
+- Transparencia
+- Equidad
+- Privacidad
+- Responsabilidad
+
+Prohibiciones:
+
+- Exponer datos personales
+- Automatizar decisiones críticas
+- Generar información falsa
 
 ---
 
-## 9. CONTACTO Y VERSION
+## 14. Licencia y contacto
 
-- Versión: 1.0.1 – Marzo 2026  
-- Licencia: MIT  
+Licencia: MIT
 
 Contacto:  
 maximiliano.perez@unq.edu.ar
